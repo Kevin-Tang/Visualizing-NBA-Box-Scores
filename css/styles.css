@@ -1,11 +1,26 @@
-ul {
+#header ul {
 	list-style-type: none;
-	margin: 0;
-	padding: 0;
+	margin: 10px auto;
+	padding: 5px;
 }
 
-li {
+#header li {
 	display: inline;
+}
+#title {
+	font-size: 35px;
+	margin-right: 500px;
+}
+
+#navigation_bar ul {
+	list-style-type: none;
+	margin: 10px auto;
+	padding: 5px;
+}
+
+#navigation_bar li {
+	display: inline;
+	margin: 10px;
 }
 
 #stats {
@@ -15,14 +30,13 @@ li {
 	border: 15px solid green;
 	padding: 30px;
 	margin: 25px auto;
-
 }
 
 #regular_box_score {
 	background-color: lightpink;
 	width: 500px;
 	height: 300px;
-	border: 15px solid pink;
+	border: 15px solid blue;
 	padding: 10px;
 	margin: 25px auto;
 }
