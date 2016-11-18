@@ -4,10 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>The HTML5 Herald</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
-
+  <title>Visualizing NBA Box Scores</title>
   <link rel="stylesheet" href="css/styles.css?v=1.0">
 
 
@@ -19,15 +16,15 @@
 <body>
   <div id="header">
   	<ul>
-  		<li id="title">Visualizing NBA Box Scores</li>
-  		<li>Date</li>
-  		<li>Calendar</li>
+  		<li style="float:left">Visualizing NBA Box Scores</li>
+      <li style="float:right">Calendar</li>
+  		<li style="float:right">Date</li>
   	</ul>
   </div>
 
   <div id="navigation_bar">
   	<ul>
-  		<li><button type="button">Game 1</button></li>
+  		<li><button type="button" id="game" onclick="populateStatistics()" value="first game">Game 1</button></li>
   		<li><button type="button">Game 2</button></li>
   		<li><button type="button">Game 3</button></li>
   		<li><button type="button">Game 4</button></li>
@@ -39,11 +36,19 @@
   	Visualization of data comes here.
   </div>
 
+  <h1>Regular Box Score</h1>
   <div id="regular_box_score">
   	Regular Box Score comes here.
   </div>
 
+  <script>
+  function populateStatistics(){
+    var stats = document.getElementById("game").innerHTML;
+    var gameDiv = document.createElement("div");
 
-  <script src="js/scripts.js"></script>
+    var text = gameDiv.innerHTML = "Visualization of "+stats+" goes here";
+    document.getElementById("stats").innerHTML = text;
+  }
+  </script>
 </body>
 </html>
