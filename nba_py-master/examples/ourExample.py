@@ -18,8 +18,5 @@ def boxScore():
 def main():
     boxScore()
 
-
-
-
 if __name__ == '__main__':
     main()
