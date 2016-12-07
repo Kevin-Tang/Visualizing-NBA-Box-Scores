@@ -3,8 +3,8 @@ from nba_py import game, shotchart
 gameID = '0041400122'
 
 def boxScore():
-    # boxscore = game.Boxscore(gameID)
-    # print(boxscore.team_stats())
+    boxscore = game.Boxscore(gameID)
+    print(boxscore.team_stats())
 
     # advBoxscore = game.BoxscoreAdvanced(gameID)
     # print(advBoxscore.team_stats())
@@ -17,9 +17,6 @@ def boxScore():
 
 def main():
     boxScore()
-
-
-
 
 if __name__ == '__main__':
     main()
