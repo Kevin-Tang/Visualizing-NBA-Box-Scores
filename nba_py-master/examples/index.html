@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="Chart.min.js"></script>
+</head>
+<body>
+<canvas id="myPieChart2" width="200" height="200"></canvas>
+<script>
+    var ctx2 = document.getElementById('myPieChart2');
+    var data2 = {
+    labels: [
+        "Chris Paul",
+        "Blake Griffin",
+        "Deandre Jordan",
+        "JJ Redick",
+        "Jamal Crawford",
+            "dumm1",
+            "dsda",
+            "sdsdsd",
+            "sdsdsd"
+    ],
+    datasets: [
+        {
+            data: [22, 20, 10, 12, 15, 23, 1, 5, 10, 12],
+            backgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56",
+                "#4286f4",
+                "#307022",
+                "#36A2EB",
+                "#FFCE56",
+                "#4286f4",
+                "#36A2EB"
+            ],
+            hoverBackgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56",
+                "#0d2d51",
+                "#1bba1b",
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56",
+                "#0d2d51"
+            ]
+        }]
+};
+// For a pie chart
+var myPieChart2 = new Chart(ctx2,{
+    type: 'pie',
+    data: data2
+});
+</script>
+</body>
+</html>

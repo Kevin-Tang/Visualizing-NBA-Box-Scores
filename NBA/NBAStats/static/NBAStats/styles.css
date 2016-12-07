@@ -26,13 +26,8 @@
 	margin: 15px;
 }
 
-#stats {
-	background-color: lightgreen;
-	width: 75%;
-	height: 1000px;
-	border: 5px solid green;
-	padding: 30px;
-	margin: 25px auto;
+div.row{
+	border: 1px black;
 }
 
 #regular_box_score {
