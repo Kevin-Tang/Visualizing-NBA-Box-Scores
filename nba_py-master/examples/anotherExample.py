@@ -1,5 +1,21 @@
 from __future__ import print_function
 from nba_py import shotchart
+from nba_py import Scoreboard
 
-chart = shotchart.ShotChart('203507')
-print(chart.shot_chart())
+scoreBoard = Scoreboard()
+game_ids_object = scoreBoard.game_header()['GAME_ID']
+game_ids_str = [ str(item) for item in game_ids_object]
+print(game_ids_str)
+print(game_ids_str[3])
+print(type(game_ids_str[3]))
+# game = h['GAME_ID'][0]
+# gameStr = str(game)
+# print(type(gameStr))
+# print(gameStr)
+
+# game_ids = [item['GAME_ID'] for item in s.game_header()]
+
+# chart = shotchart.ShotChart('203507')
+# print(chart.shot_chart())
+
+
