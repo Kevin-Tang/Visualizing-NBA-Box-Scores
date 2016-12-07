@@ -5,6 +5,7 @@ from nba_py import game
 # pbp = game.PlayByPlay('0041400122')
 # print pbp.info()
 box = game.Boxscore('0041400122')
+<<<<<<< HEAD
 #print(box.game_summary())
 bss = game.BoxscoreScoring('0041400122')
 print(bss.sql_team_scoring())
@@ -14,3 +15,14 @@ print(bss.sql_team_scoring())
 #print(bsa.sql_team_advanced())
 #bsf = game.BoxscoreFourFactors('0041400122')
 #print(bsf.sql_team_four_factors())
+=======
+print(box.team_starter_bench_stats())
+# bss = game.BoxscoreScoring('0041400122')
+# print(bss.sql_team_scoring())
+# bsu = game.BoxscoreUsage('0041400122')
+# print(bsu.sql_team_usage())
+# bsa = game.BoxscoreAdvanced('0041400122')
+# print(bsa.sql_team_advanced())
+# bsf = game.BoxscoreFourFactors('0041400122')
+# print(bsf.sql_team_four_factors())
+>>>>>>> 2754211e3c26d2dc29e63f6fab1cc8ee9f87eefa

@@ -10,8 +10,8 @@ def boxScore():
     # print(advBoxscore.team_stats())
 
     # print(game.BoxscoreSummary(gameID).game_info())
-    #print(game.BoxscoreSummary(gameID).game_summary())
-    #print(game.BoxscoreSummary(gameID).line_score())
+    # print(game.BoxscoreSummary(gameID).game_summary())
+    # print(game.BoxscoreSummary(gameID).line_score())
     # print(game.BoxscoreSummary(gameID).inactive_players())
     # print(game.BoxscoreSummary(gameID).season_series())
 
