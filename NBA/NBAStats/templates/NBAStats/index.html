@@ -76,13 +76,24 @@
             </div>
 		</div>
 		<h1>Regular Box Score</h1>
-        <table class="table table-condensed">
+        <table class="table table-bordered">
             <tr style="font-weight: bold">
-                <td>Player Name</td>
-                <td>Player Mins</td>
-                <td>Player Points</td>
-                <td>Player Rebounds</td>
-                <td>Player Assists</td>
+                <td>Player_Name</td>
+                <td>Mins</td>
+                <td>FGM</td>
+                <td>FG%</td>
+                <td>3PM</td>
+                <td>3P%</td>
+                <td>FTM</td>
+                <td>FT%</td>
+                <td>REB</td>
+                <td>AST</td>
+                <td>TOV</td>
+                <td>STL</td>
+                <td>BLK</td>
+                <td>PF</td>
+                <td>PTS</td>
+                <td>+/-</td>
             </tr>
             <tr>
                 <td>Row 1, Column 1</td>
@@ -90,6 +101,17 @@
                 <td>Row 1, Column 3</td>
                 <td>Row 1, Column 4</td>
                 <td>Row 1, Column 5</td>
+                <td>Row 1, Column 6</td>
+                <td>Row 1, Column 7</td>
+                <td>Row 1, Column 8</td>
+                <td>Row 1, Column 9</td>
+                <td>Row 1, Column 10</td>
+                <td>Row 1, Column 11</td>
+                <td>Row 1, Column 12</td>
+                <td>Row 1, Column 13</td>
+                <td>Row 1, Column 14</td>
+                <td>Row 1, Column 15</td>
+                <td>Row 1, Column 16</td>
             </tr>
             <tr>
                 <td>Row 2, Column 1</td>
@@ -97,6 +119,17 @@
                 <td>Row 2, Column 3</td>
                 <td>Row 2, Column 4</td>
                 <td>Row 2, Column 5</td>
+                <td>Row 2, Column 6</td>
+                <td>Row 2, Column 7</td>
+                <td>Row 2, Column 8</td>
+                <td>Row 2, Column 9</td>
+                <td>Row 2, Column 10</td>
+                <td>Row 2, Column 11</td>
+                <td>Row 2, Column 12</td>
+                <td>Row 2, Column 13</td>
+                <td>Row 2, Column 14</td>
+                <td>Row 2, Column 15</td>
+                <td>Row 2, Column 16</td>
             </tr>
             <tr>
                 <td>Row 3, Column 1</td>
@@ -104,6 +137,35 @@
                 <td>Row 3, Column 3</td>
                 <td>Row 3, Column 4</td>
                 <td>Row 3, Column 5</td>
+                <td>Row 3, Column 6</td>
+                <td>Row 3, Column 7</td>
+                <td>Row 3, Column 8</td>
+                <td>Row 3, Column 9</td>
+                <td>Row 3, Column 10</td>
+                <td>Row 3, Column 11</td>
+                <td>Row 3, Column 12</td>
+                <td>Row 3, Column 13</td>
+                <td>Row 3, Column 14</td>
+                <td>Row 3, Column 15</td>
+                <td>Row 3, Column 16</td>
+            </tr>
+            <tr>
+                <td>Row 1, Column 1</td>
+                <td>Row 1, Column 2</td>
+                <td>Row 1, Column 3</td>
+                <td>Row 1, Column 4</td>
+                <td>Row 1, Column 5</td>
+                <td>Row 1, Column 6</td>
+                <td>Row 1, Column 7</td>
+                <td>Row 1, Column 8</td>
+                <td>Row 1, Column 9</td>
+                <td>Row 1, Column 10</td>
+                <td>Row 1, Column 11</td>
+                <td>Row 1, Column 12</td>
+                <td>Row 1, Column 13</td>
+                <td>Row 1, Column 14</td>
+                <td>Row 1, Column 15</td>
+                <td>Row 1, Column 16</td>
             </tr>
         </table>
 	</div>
@@ -303,7 +365,6 @@
                         }
                     ]
          };
-
          var myLineChart = new Chart(lineCtx, {
              type: 'line',
              data: lineData
