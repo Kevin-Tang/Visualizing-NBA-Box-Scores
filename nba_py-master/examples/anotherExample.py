@@ -24,12 +24,13 @@ summary = game.BoxscoreSummary('0021600322')
 # print(summary.game_summary())
 print ("\n\n\n\n")
 lineScore = summary.line_score()
-print(lineScore)
-print(type(lineScore))
+# print(lineScore)
+# print(lineScore.columns)
+# print(type(lineScore))
+# print ("\n\n\n\n")
+print(lineScore[['PTS_QTR1', 'PTS_QTR2', 'PTS_QTR3', 'PTS_QTR4', 'PTS']])
 print ("\n\n\n\n")
-print(lineScore[['PTS_QTR1', 'PTS_QTR2', 'PTS_QTR3', 'PTS_QTR4']])
-print ("\n\n\n\n")
-print(lineScore.get(['PTS_QTR1', 'PTS_QTR2', 'PTS_QTR3', 'PTS_QTR4']))
+print(lineScore.get(['PTS_QTR1', 'PTS_QTR2', 'PTS_QTR3', 'PTS_QTR4', 'PTS']))
 
 
 
