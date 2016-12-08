@@ -3,5 +3,5 @@ from nba_py import shotchart, Scoreboard, game
 from datetime import datetime, timedelta
 
 TODAY = datetime.today()
-print(TODAY.day)
+print(str(TODAY.month) + "-" + str(TODAY.day) +"-" + str(TODAY.year))
 
