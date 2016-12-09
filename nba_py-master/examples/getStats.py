@@ -29,15 +29,16 @@ def getPointsbyQuarter(month, day, year):
         game_ids = getGameID(month, day, year)
         box = game.BoxscoreSummary(game_ids[0])
         lineScore = (box.line_score())
-        print(lineScore)
+        #print(lineScore)
         quarterPoints = []
         for quarter in range(1, 5):
             Qtr = 'PTS_QTR' + str(quarter)
             quarterPoints.extend(item[Qtr] for item in lineScore)
+        print(quarterPoints)
         Team1 = quarterPoints[::2]
         Team2 = quarterPoints[1:len(quarterPoints):2]
-        Points = [Team1, Team2]
-        return Points
+        quarterPoints = [Team1, Team2]
+        return quarterPoints
     
     except Exception as e:
         print(str(e))
@@ -96,7 +97,7 @@ def main():
     print(quarterPoints)
     print(pointsbyPlayer)
     """
-    playbyPlay = getPlaybyPlay(12, 7, 2016)
+    playbyPlay = getPointsbyQuarter(12, 7, 2016)
     print(playbyPlay)
 
 if __name__ == '__main__':
