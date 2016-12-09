@@ -10,7 +10,9 @@ def getGameID(month, day, year):
     """
     TODAY = datetime.today()
     s = Scoreboard(month, day, year)
-    game_ids = [item['GAME_ID'] for item in s.game_header()]
+    # game_ids = [item['GAME_ID'] for item in s.game_header()] #This doesn't work in Python 2
+    game_ids_column = s.game_header()['GAME_ID']
+    game_ids = [ str(item) for item in game_ids_column]
     # ['0021600331', '0021600332', '0021600333', '0021600334', '0021600335', '0021600336']
     return game_ids
 
