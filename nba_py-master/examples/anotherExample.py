@@ -39,5 +39,3 @@ print(lineScore.get(['PTS_QTR1', 'PTS_QTR2', 'PTS_QTR3', 'PTS_QTR4', 'PTS']))
 
 # chart = shotchart.ShotChart('203507')
 # print(chart.shot_chart())
-
-
