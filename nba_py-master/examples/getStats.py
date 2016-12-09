@@ -50,7 +50,17 @@ def getPlayers():
     except Exception as e:
         print(str(e))
 
-
+def getPlaybyPlay():
+    pbp = game.PlayByPlay('0041400122')
+    plays = (pbp.info())
+    #print(plays)
+    playList = [[item['PERIOD'] for item in plays if item['SCORE'] is not None],
+                [item['PCTIMESTRING'] for item in plays if item['SCORE'] is not None],
+                [item['HOMEDESCRIPTION'] for item in plays if item['SCORE'] is not None],
+                [item['VISITORDESCRIPTION'] for item in plays if item['SCORE'] is not None],
+                [item['SCORE'] for item in plays if item['SCORE'] is not None]
+                ]
+    return list(zip(*playList))
 
 def main():
     """
@@ -59,6 +69,7 @@ def main():
     print(quarterPoints)
     print(pointsbyPlayer)
     """
-    getPlayers()
+    playbyPlay = getPlaybyPlay()
+    print(playbyPlay)
 if __name__ == '__main__':
     main()
