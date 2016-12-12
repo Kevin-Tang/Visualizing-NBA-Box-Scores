@@ -2,9 +2,9 @@ $( function(){
 
 	$( "#datepicker" ).datepicker({
 	    onSelect: function(date) {
-	    	month = date.slice(0,2);
-	    	day = date.slice(3,5);
-	    	year = date.slice(6);
+	    	month = date.slice(0,2); // parse out month
+	    	day = date.slice(3,5);  // parse out 
+	    	year = date.slice(6);  // parse out year
 	    	console.log("month is " + month + "\nday is " + day + "\nyear is " + year);
 	    	populateGameButtons(month, day, year);
 	    }
@@ -12,9 +12,9 @@ $( function(){
 
 	function populateGameButtons(month, day, year){
 		console.log("you called populateGameButtons()");
-		console.log(" the year is " + year);
+		console.log("the year is " + year);
 		// $.ajax({
-		// 	url : "populate_games/", // the endpoint
+		// 	url : "populate_game_buttons/", // the endpoint
 		// 	data : {
 		// 		month : month,
 		// 		day : day,
