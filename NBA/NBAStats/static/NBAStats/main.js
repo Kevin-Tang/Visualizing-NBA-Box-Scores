@@ -25,6 +25,11 @@ $( function(){
 			},
 			success : function(json) {
 				console.log(json); // log the returned json to the console
+				$('#game_buttons').empty(); // delete games from previously selected date
+				$.each(json.game_ids, function(i, val){ // add a button for each game
+					console.log(i + " " + val);
+					$('#game_buttons').append("<li><input type='button' value='"+val+"'></li>");
+				});
 				console.log("SUCCESS!"); // sanity check
 			},
 
