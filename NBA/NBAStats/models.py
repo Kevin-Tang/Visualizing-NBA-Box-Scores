@@ -12,11 +12,10 @@ class Date(models.Model):
 		return 'The date is %s' % (self.date) 
 
 class Game(models.Model):
-	gameDate = models.ForeignKey(Date, on_delete=models.CASCADE, null=True)
+	gameDate = models.CharField(max_length=20, default='')
 	gameID = models.CharField(max_length=20, unique=True)
-	homeTeam = models.CharField(max_length=20, default='')
-	awayTeam = models.CharField(max_length=20, default='')
-	lineScore = models.CharField(max_length=200, default='')
+	homeTeam = models.CharField(max_length=20, default='', blank=True)
+	awayTeam = models.CharField(max_length=20, default='', blank=True)
 
 	def __str__(self):
 		return 'Game ID: %s' % (self.gameID)

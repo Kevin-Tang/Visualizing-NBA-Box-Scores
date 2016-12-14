@@ -62,7 +62,7 @@ $( function(){
 				$('#team2').text(teams[1]);
 				homeTeamScores = json.quarterPoints[0];
 				awayTeamScores = json.quarterPoints[1];
-				createBarGraph(homeTeamScores, awayTeamScores);
+				createBarGraph(homeTeamScores, awayTeamScores, teams);
 				players = json.players;
 				console.log(players[0]);
 				console.log(players[1]);
@@ -70,7 +70,8 @@ $( function(){
 				console.log(players[3]);
 
 
-				createPieGraph(players[0], players[1], players[2], players[3]);
+				createPieGraph1(players[0], players[1]);
+				createPieGraph2(players[2], players[3]);
 			},
 
 			error : function(xhr,errmsg,err) {
@@ -82,7 +83,7 @@ $( function(){
 	}
 
 	// creates the bar chart for quarter scores
-	function createBarGraph(homeTeamScores, awayTeamScores) {
+	function createBarGraph(homeTeamScores, awayTeamScores, teams) {
 		deleteBarGraph();
 		console.log("you called createBarGraph()"); // sanity check
 		var barCtx = $("#BarGraph");
@@ -91,7 +92,7 @@ $( function(){
 		datasets: [
 
 			   {
-				   label: "Team_1",
+				   label: teams[0],
 				   backgroundColor: [
 						   'rgba(255, 99, 132, 0.2)',
 						   'rgba(54, 162, 235, 0.2)',
@@ -109,10 +110,10 @@ $( function(){
 						   'rgba(200, 120, 24, 1)'
 				   ],
 				   borderWidth: 1,
-				   data: homeTeamScores //[0, 20, 28, 35, 25, 108]
+				   data: homeTeamScores
 			   },
 			   {
-				   label: "Team_2",
+				   label: teams[1],
 				   backgroundColor: [
 						   'rgba(255, 99, 132, 0.2)',
 						   'rgba(54, 162, 235, 0.2)',
@@ -129,7 +130,7 @@ $( function(){
 						   'rgba(153, 102, 255, 1)',
 						   'rgba(40, 120, 24, 1)'
 				   ],
-				   data: awayTeamScores //[0, 25, 30, 30, 25, 110]
+				   data: awayTeamScores
 			   }
 		   ]
 		};
@@ -145,14 +146,14 @@ $( function(){
 		$("#BarGraphContainer").append("<canvas id='BarGraph'></canvas>");
 	}
 
-	function createPieGraph(players1, scores1, players2, scores2) {
-		console.log("you called createPieGraph()");
+	function createPieGraph1(players1, scores1) {
+		console.log("you called createPieGraph1()");
+		deletePieGraph1();
 		var i; // for loop index
 		var colors1 = []; // empty loop for colors
 		for (i = 0; i < scores1.length; i++) { // generate random colors for pie chart
 			colors1.push(getRandomColor());
 		}
-		var j;
 
 		var pieCtx1 = $('#myPieChart1');
 		var data1 = {
@@ -160,8 +161,7 @@ $( function(){
 		datasets: [
 		   {
 			   data: scores1,
-			   backgroundColor: colors1,
-			   hoverBackgroundColor: colors2
+			   backgroundColor: colors1
 		   }]
 		};
 		// For a pie chart
@@ -169,26 +169,41 @@ $( function(){
 		 type: 'pie',
 		 data: data1
 		});
+	}
 
-		var colors2 = [];
-		for (j = 0; j < scores2.length; j++) {
+	function deletePieGraph1() {
+		$("#myPieChart1").remove();
+		$("#myPieChart1Container").append("<canvas id='myPieChart1'></canvas>");
+	}
+
+	function createPieGraph2(players2, scores2) {
+		console.log("you called createPieGraph2()");
+		deletePieGraph2();
+		var i; // for loop index
+		var colors2 = []; // empty loop for colors
+		for (i = 0; i < scores2.length; i++) { // generate random colors for pie chart
 			colors2.push(getRandomColor());
 		}
-		var ctx2 = $('#myPieChart2');
+
+		var pieCtx2 = $('#myPieChart2');
 		var data2 = {
 		labels: players2,
 		datasets: [
 		   {
 			   data: scores2,
-			   backgroundColor: colors2,
-			   hoverBackgroundColor: colors1
+			   backgroundColor: colors2
 		   }]
 		};
 		// For a pie chart
-		var myPieChart2 = new Chart(ctx2,{
+		var myPieChart = new Chart(pieCtx2,{
 		 type: 'pie',
 		 data: data2
 		});
+	}
+
+	function deletePieGraph2() {
+		$("#myPieChart2").remove();
+		$("#myPieChart2Container").append("<canvas id='myPieChart2'></canvas>");
 	}
 
 	function getRandomColor() {

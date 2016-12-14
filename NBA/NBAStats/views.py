@@ -5,6 +5,7 @@ import sys
 sys.path.insert(0, 'Visualizing_NBA_Boxscores/nba_py_master')
 from nba_py import Scoreboard, game
 from . import getStats
+from .models import Game
 
 from django.views.decorators.csrf import ensure_csrf_cookie
 
@@ -30,11 +31,13 @@ def populate_game_buttons(request):
 	u_year = request.POST.get("year")
 	year = int(u_year)
 
-	# gameDate = Date(date=date)
-	# gameDate.save()
-
 	game_ids = getStats.getGameID(month, day, year)
 	print (game_ids)
+	for ID in game_ids:
+		game = Game.objects.get_or_create(gameID=ID, gameDate=date)
+
+	game_set = Game.objects.filter(gameDate=date)
+	print game_set
 
 	response_data = {}
 	response_data['date'] = date
@@ -46,8 +49,12 @@ def populate_game_buttons(request):
 	)
 
 def get_game_data(request):
-	ID = str(request.POST.get("gameID"))
-	print ID
+	IDposted = str(request.POST.get("gameID"))
+	print IDposted
+
+	game = Game.objects.get(gameID=IDposted)
+	ID = game.gameID
+	print "ID is %s" % ID
 
 	teams = getStats.getTeams(ID)
 
