@@ -6,6 +6,7 @@ $( function(){
 			day = date.slice(3,5);  // parse out 
 			year = date.slice(6);  // parse out year
 			console.log("month is " + month + "\nday is " + day + "\nyear is " + year);
+			console.log("Type of date is " + typeof date);
 			populateGameButtons(date, month, day, year);
 		}
 	});
