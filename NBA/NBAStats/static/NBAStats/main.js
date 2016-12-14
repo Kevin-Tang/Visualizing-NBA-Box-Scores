@@ -56,12 +56,21 @@ $( function(){
 			},
 			success : function(json) {
 				console.log(json);
-				gameID = json.gameID;
 				teams = json.teams;
 				$('#teamNames').text(teams[0] + " vs. " + teams[1]);
+				$('#team1').text(teams[0]);
+				$('#team2').text(teams[1]);
 				homeTeamScores = json.quarterPoints[0];
 				awayTeamScores = json.quarterPoints[1];
-				createBarGraph(json.gameID, homeTeamScores, awayTeamScores);
+				createBarGraph(homeTeamScores, awayTeamScores);
+				players = json.players;
+				console.log(players[0]);
+				console.log(players[1]);
+				console.log(players[2]);
+				console.log(players[3]);
+
+
+				createPieGraph(players[0], players[1], players[2], players[3]);
 			},
 
 			error : function(xhr,errmsg,err) {
@@ -73,56 +82,55 @@ $( function(){
 	}
 
 	// creates the bar chart for quarter scores
-	function createBarGraph(gameID, homeTeamScores, awayTeamScores) {
+	function createBarGraph(homeTeamScores, awayTeamScores) {
 		deleteBarGraph();
 		console.log("you called createBarGraph()"); // sanity check
-		console.log("the gameID is " + gameID); // sanity check
 		var barCtx = $("#BarGraph");
 		var barData = {
 		labels: ["Start", "Q1", "Q2", "Q3", "Q4", "Total"],
 		datasets: [
 
-		       {
-		           label: "Team_1",
-		           backgroundColor: [
-		                   'rgba(255, 99, 132, 0.2)',
-		                   'rgba(54, 162, 235, 0.2)',
-		                   'rgba(255, 206, 86, 0.2)',
-		                   'rgba(75, 192, 192, 0.2)',
-		                   'rgba(153, 102, 255, 0.2)',
-		                   'rgba(203, 15, 15, 0.2)'
-		           ],
-		           borderColor: [
-		                   'rgba(255,99,132,1)',
-		                   'rgba(54, 162, 235, 1)',
-		                   'rgba(255, 206, 86, 1)',
-		                   'rgba(75, 192, 192, 1)',
-		                   'rgba(153, 102, 255, 1)',
-		                   'rgba(200, 120, 24, 1)'
-		           ],
-		           borderWidth: 1,
-		           data: homeTeamScores //[0, 20, 28, 35, 25, 108]
-		       },
-		       {
-		           label: "Team_2",
-		           backgroundColor: [
-		                   'rgba(255, 99, 132, 0.2)',
-		                   'rgba(54, 162, 235, 0.2)',
-		                   'rgba(255, 206, 86, 0.2)',
-		                   'rgba(75, 192, 192, 0.2)',
-		                   'rgba(153, 102, 255, 0.2)',
-		                   'rgba(203, 15, 15, 0.2)'
-		           ],
-		           borderColor: [
-		                   'rgba(255,99,132,1)',
-		                   'rgba(54, 162, 235, 1)',
-		                   'rgba(15, 206, 246, 1)',
-		                   'rgba(75, 192, 192, 1)',
-		                   'rgba(153, 102, 255, 1)',
-		                   'rgba(40, 120, 24, 1)'
-		           ],
-		           data: awayTeamScores //[0, 25, 30, 30, 25, 110]
-		       }
+			   {
+				   label: "Team_1",
+				   backgroundColor: [
+						   'rgba(255, 99, 132, 0.2)',
+						   'rgba(54, 162, 235, 0.2)',
+						   'rgba(255, 206, 86, 0.2)',
+						   'rgba(75, 192, 192, 0.2)',
+						   'rgba(153, 102, 255, 0.2)',
+						   'rgba(203, 15, 15, 0.2)'
+				   ],
+				   borderColor: [
+						   'rgba(255,99,132,1)',
+						   'rgba(54, 162, 235, 1)',
+						   'rgba(255, 206, 86, 1)',
+						   'rgba(75, 192, 192, 1)',
+						   'rgba(153, 102, 255, 1)',
+						   'rgba(200, 120, 24, 1)'
+				   ],
+				   borderWidth: 1,
+				   data: homeTeamScores //[0, 20, 28, 35, 25, 108]
+			   },
+			   {
+				   label: "Team_2",
+				   backgroundColor: [
+						   'rgba(255, 99, 132, 0.2)',
+						   'rgba(54, 162, 235, 0.2)',
+						   'rgba(255, 206, 86, 0.2)',
+						   'rgba(75, 192, 192, 0.2)',
+						   'rgba(153, 102, 255, 0.2)',
+						   'rgba(203, 15, 15, 0.2)'
+				   ],
+				   borderColor: [
+						   'rgba(255,99,132,1)',
+						   'rgba(54, 162, 235, 1)',
+						   'rgba(15, 206, 246, 1)',
+						   'rgba(75, 192, 192, 1)',
+						   'rgba(153, 102, 255, 1)',
+						   'rgba(40, 120, 24, 1)'
+				   ],
+				   data: awayTeamScores //[0, 25, 30, 30, 25, 110]
+			   }
 		   ]
 		};
 		var BarGraph = new Chart(barCtx, {
@@ -137,25 +145,80 @@ $( function(){
 		$("#BarGraphContainer").append("<canvas id='BarGraph'></canvas>");
 	}
 
+	function createPieGraph(players1, scores1, players2, scores2) {
+		console.log("you called createPieGraph()");
+		var i; // for loop index
+		var colors1 = []; // empty loop for colors
+		for (i = 0; i < scores1.length; i++) { // generate random colors for pie chart
+			colors1.push(getRandomColor());
+		}
+		var j;
+
+		var pieCtx1 = $('#myPieChart1');
+		var data1 = {
+		labels: players1,
+		datasets: [
+		   {
+			   data: scores1,
+			   backgroundColor: colors1,
+			   hoverBackgroundColor: colors2
+		   }]
+		};
+		// For a pie chart
+		var myPieChart = new Chart(pieCtx1,{
+		 type: 'pie',
+		 data: data1
+		});
+
+		var colors2 = [];
+		for (j = 0; j < scores2.length; j++) {
+			colors2.push(getRandomColor());
+		}
+		var ctx2 = $('#myPieChart2');
+		var data2 = {
+		labels: players2,
+		datasets: [
+		   {
+			   data: scores2,
+			   backgroundColor: colors2,
+			   hoverBackgroundColor: colors1
+		   }]
+		};
+		// For a pie chart
+		var myPieChart2 = new Chart(ctx2,{
+		 type: 'pie',
+		 data: data2
+		});
+	}
+
+	function getRandomColor() {
+		var letters = '0123456789ABCDEF'.split('');
+		var color = '#';
+		for (var i = 0; i < 6; i++ ) {
+			color += letters[Math.floor(Math.random() * 16)];
+		}
+		return color;
+	}
+
 
 // Code below is from Django documentation
 // It enables AJAX to pass the csrf_token
 
 	// This function gets cookie with a given name
 	function getCookie(name) {
-	    var cookieValue = null;
-	    if (document.cookie && document.cookie != '') {
-	        var cookies = document.cookie.split(';');
-	        for (var i = 0; i < cookies.length; i++) {
-	            var cookie = jQuery.trim(cookies[i]);
-	            // Does this cookie string begin with the name we want?
-	            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-	                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-	                break;
-	            }
-	        }
-	    }
-	    return cookieValue;
+		var cookieValue = null;
+		if (document.cookie && document.cookie != '') {
+			var cookies = document.cookie.split(';');
+			for (var i = 0; i < cookies.length; i++) {
+				var cookie = jQuery.trim(cookies[i]);
+				// Does this cookie string begin with the name we want?
+				if (cookie.substring(0, name.length + 1) == (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
 	}
 	var csrftoken = getCookie('csrftoken');
 
@@ -164,32 +227,32 @@ $( function(){
 	*/
 
 	function csrfSafeMethod(method) {
-	    // these HTTP methods do not require CSRF protection
-	    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		// these HTTP methods do not require CSRF protection
+		return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 	}
 	function sameOrigin(url) {
-	    // test that a given url is a same-origin URL
-	    // url could be relative or scheme relative or absolute
-	    var host = document.location.host; // host + port
-	    var protocol = document.location.protocol;
-	    var sr_origin = '//' + host;
-	    var origin = protocol + sr_origin;
-	    // Allow absolute or scheme relative URLs to same origin
-	    return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-	        (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-	        // or any other URL that isn't scheme relative or absolute i.e relative.
-	        !(/^(\/\/|http:|https:).*/.test(url));
+		// test that a given url is a same-origin URL
+		// url could be relative or scheme relative or absolute
+		var host = document.location.host; // host + port
+		var protocol = document.location.protocol;
+		var sr_origin = '//' + host;
+		var origin = protocol + sr_origin;
+		// Allow absolute or scheme relative URLs to same origin
+		return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+			(url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+			// or any other URL that isn't scheme relative or absolute i.e relative.
+			!(/^(\/\/|http:|https:).*/.test(url));
 	}
 
 	$.ajaxSetup({
-	    beforeSend: function(xhr, settings) {
-	        if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
-	            // Send the token to same-origin, relative URLs only.
-	            // Send the token only if the method warrants CSRF protection
-	            // Using the CSRFToken value acquired earlier
-	            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-	        }
-	    }
+		beforeSend: function(xhr, settings) {
+			if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+				// Send the token to same-origin, relative URLs only.
+				// Send the token only if the method warrants CSRF protection
+				// Using the CSRFToken value acquired earlier
+				xhr.setRequestHeader("X-CSRFToken", csrftoken);
+			}
+		}
 	});
 
 });

@@ -80,14 +80,32 @@ def getPointsbyPlayer(month, day, year):
         print(str(e))
         print("POINTS was not found. Data is probably unavailible")
 
-def getPlayers(month, day, year):
+def getPlayers(gameID):
     try:
-        game_ids = getGameID(month, day, year)
-        box = game.Boxscore(game_ids[0])
+        box = game.Boxscore(gameID)
         playerStats = box.player_stats()
-        playersList = [item['PLAYER_NAME'] for item in playerStats if item['MIN'] is not None]
-        print(playersList)
-        return True
+        print (playerStats)
+        played = []
+        for index in range(len(playerStats)):
+            if (playerStats['MIN'][index] != None):
+                played.append(index)
+        playersList1 = []
+        playersList2 = []
+        playersScores1 = []
+        playersScores2 = []
+        for index in played:
+            if playerStats['TEAM_ID'][index] == playerStats['TEAM_ID'][0]:
+                playersList1.append(str(playerStats['PLAYER_NAME'][index]))
+                playersScores1.append(int(playerStats['PTS'][index]))
+            else:
+                playersList2.append(str(playerStats['PLAYER_NAME'][index]))
+                playersScores2.append(int(playerStats['PTS'][index]))
+        # playersScores = [int(shit) for shit in playerStats['PTS']]
+        # print (playersList)
+        # print (playersScores)
+        # playersList = [str(item) for item in players_column if item['MIN'] is not None]
+        # playersList = [item['PLAYER_NAME'] for item in playerStats if item['MIN'] is not None]
+        return [playersList2, playersScores2, playersList1, playersScores1]
 
     except Exception as e:
         print(str(e))
