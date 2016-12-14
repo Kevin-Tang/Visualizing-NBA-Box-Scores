@@ -5,15 +5,13 @@ $( function(){
 			month = date.slice(0,2); // parse out month
 			day = date.slice(3,5);  // parse out 
 			year = date.slice(6);  // parse out year
-			console.log("month is " + month + "\nday is " + day + "\nyear is " + year);
-			console.log("Type of date is " + typeof date);
+			// console.log("month is " + month + "\nday is " + day + "\nyear is " + year);
 			populateGameButtons(date, month, day, year);
 		}
 	});
 
 	function populateGameButtons(date, month, day, year){
 		console.log("you called populateGameButtons()");
-		console.log("the year is " + year);
 		$.ajax({
 			url : "populate_game_buttons/", // the endpoint
 			type : "POST", // http method
@@ -27,8 +25,8 @@ $( function(){
 				console.log(json); // log the returned json to the console
 				$('#game_buttons').empty(); // delete games from previously selected date
 				$.each(json.game_ids, function(i, val){ // add a button for each game
-					console.log(i + " " + val);
-					$('#game_buttons').append("<li><input type='button' value='"+val+"'></li>");
+					// console.log(i + " " + val);  // print game IDs
+					$('#game_buttons').append("<li><input type='button' value='"+val+"' class='game' id='"+val+"'></li>");
 				});
 				console.log("SUCCESS!"); // sanity check
 			},
@@ -38,6 +36,42 @@ $( function(){
 				console.log(xhr.status + ": " + xhr.responseText);
 			}
 		});
+	}
+
+	// event handling for click on a game button
+	$(document).on("click", ".game", function() {
+		var gameID = $(this).attr('id');
+		console.log("you clicked on game: " + gameID); // sanity check
+		showStats(gameID);
+	});
+
+	// wrapper function for loading and visualizing the game stats
+	function showStats(gameID) {
+		console.log("you called showStats() with game: " + gameID); // sanity check
+		// $.ajax({
+		// 	url : "get_game_data/", // the endpoint
+		// 	type : "POST", // http method
+		// 	data : {
+		// 		gameID : gameID
+		// 	},
+		// 	success : function(json) {
+				
+		// 	},
+
+		// 	error : function(xhr,errmsg,err) {
+		// 		alert(errmsg);
+		// 		console.log(xhr.status + ": " + xhr.responseText);
+		// 	}
+		// });
+
+
+		createBarChart(gameID);
+	}
+
+	// creates the bar chart for quarter scores
+	function createBarChart(gameID) {
+		console.log("you called createBarChart()"); // sanity check
+		console.log("the gameID is " + gameID);
 	}
 
 
@@ -95,6 +129,60 @@ $( function(){
 	    }
 	});
 
+});
+
+
+var barCtx = document.getElementById('myBarGraph');
+var barData = {
+labels: ["Start", "Q1", "Q2", "Q3", "Q4", "Total"],
+datasets: [
+
+       {
+           label: "Team_1",
+           backgroundColor: [
+                   'rgba(255, 99, 132, 0.2)',
+                   'rgba(54, 162, 235, 0.2)',
+                   'rgba(255, 206, 86, 0.2)',
+                   'rgba(75, 192, 192, 0.2)',
+                   'rgba(153, 102, 255, 0.2)',
+                   'rgba(203, 15, 15, 0.2)'
+           ],
+           borderColor: [
+                   'rgba(255,99,132,1)',
+                   'rgba(54, 162, 235, 1)',
+                   'rgba(255, 206, 86, 1)',
+                   'rgba(75, 192, 192, 1)',
+                   'rgba(153, 102, 255, 1)',
+                   'rgba(200, 120, 24, 1)'
+           ],
+           borderWidth: 1,
+           data: [0, 20, 28, 35, 25, 108]
+       },
+       {
+           label: "Team_2",
+           backgroundColor: [
+                   'rgba(255, 99, 132, 0.2)',
+                   'rgba(54, 162, 235, 0.2)',
+                   'rgba(255, 206, 86, 0.2)',
+                   'rgba(75, 192, 192, 0.2)',
+                   'rgba(153, 102, 255, 0.2)',
+                   'rgba(203, 15, 15, 0.2)'
+           ],
+           borderColor: [
+                   'rgba(255,99,132,1)',
+                   'rgba(54, 162, 235, 1)',
+                   'rgba(15, 206, 246, 1)',
+                   'rgba(75, 192, 192, 1)',
+                   'rgba(153, 102, 255, 1)',
+                   'rgba(40, 120, 24, 1)'
+           ],
+           data: [0, 25, 30, 30, 25, 110]
+       }
+   ]
+};
+var myBarChart = new Chart(barCtx, {
+ type: 'bar',
+ data: barData
 });
 
 
