@@ -44,3 +44,18 @@ def populate_game_buttons(request):
 		json.dumps(response_data),
 		content_type="application/json"
 	)
+
+def get_game_data(request):
+	ID = str(request.POST.get("gameID"))
+	print ID
+
+	quarterPoints = getStats.getPointsbyQuarter(ID)
+	
+	response_data = {}
+	response_data['gameID'] = ID
+	response_data['quarterPoints'] = quarterPoints
+
+	return HttpResponse(
+		json.dumps(response_data),
+		content_type="application/json"
+	)

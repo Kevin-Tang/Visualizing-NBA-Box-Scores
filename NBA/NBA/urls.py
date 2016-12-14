@@ -21,4 +21,5 @@ urlpatterns = [
 	url(r'^$', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^populate_game_buttons/$', views.populate_game_buttons, name='populate_game_buttons'),
+    url(r'^get_game_data/$', views.get_game_data, name='get_game_data'),
 ]

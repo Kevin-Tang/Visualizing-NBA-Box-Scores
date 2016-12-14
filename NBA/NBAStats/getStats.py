@@ -10,7 +10,7 @@ def getGameID(month, day, year):
     """
     TODAY = datetime.today()
     s = Scoreboard(month, day, year)
-    # game_ids = [item['GAME_ID'] for item in s.game_header()] #This doesn't work in Python 2
+    # game_ids = [item['GAME_ID'] for item in s.game_header()] # This doesn't work in Python 2
     game_ids_column = s.game_header()['GAME_ID']
     game_ids = [ str(item) for item in game_ids_column]
     # ['0021600331', '0021600332', '0021600333', '0021600334', '0021600335', '0021600336']
@@ -26,16 +26,17 @@ def getGameIDsToday():
     # ['0021600331', '0021600332', '0021600333', '0021600334', '0021600335', '0021600336']
     return game_ids
 
-def getPointsbyQuarter(month, day, year):
+def getPointsbyQuarter(gameID):
     try:
-        game_ids = getGameID(month, day, year)
-        box = game.BoxscoreSummary(game_ids[0])
+        box = game.BoxscoreSummary(gameID)
         lineScore = (box.line_score())
-        #print(lineScore)
+        print(lineScore)
         quarterPoints = []
         for quarter in range(1, 5):
             Qtr = 'PTS_QTR' + str(quarter)
-            quarterPoints.extend(item[Qtr] for item in lineScore)
+            quarterPoints_column = lineScore[Qtr]
+            quarterPoints.extend(str(item) for item in quarterPoints_column)
+            # quarterPoints.extend(item[Qtr] for item in lineScore) # This doesn't work in Python 2
         print(quarterPoints)
         Team1 = quarterPoints[::2]
         Team2 = quarterPoints[1:len(quarterPoints):2]

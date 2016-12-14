@@ -48,24 +48,24 @@ $( function(){
 	// wrapper function for loading and visualizing the game stats
 	function showStats(gameID) {
 		console.log("you called showStats() with game: " + gameID); // sanity check
-		// $.ajax({
-		// 	url : "get_game_data/", // the endpoint
-		// 	type : "POST", // http method
-		// 	data : {
-		// 		gameID : gameID
-		// 	},
-		// 	success : function(json) {
-				
-		// 	},
+		$.ajax({
+			url : "get_game_data/", // the endpoint
+			type : "POST", // http method
+			data : {
+				gameID : gameID
+			},
+			success : function(json) {
+				console.log("success: " + gameID);
+				console.log(json);
+				createBarChart(json.gameID);
+			},
 
-		// 	error : function(xhr,errmsg,err) {
-		// 		alert(errmsg);
-		// 		console.log(xhr.status + ": " + xhr.responseText);
-		// 	}
-		// });
+			error : function(xhr,errmsg,err) {
+				alert(errmsg);
+				console.log(xhr.status + ": " + xhr.responseText);
+			}
+		});
 
-
-		createBarChart(gameID);
 	}
 
 	// creates the bar chart for quarter scores
