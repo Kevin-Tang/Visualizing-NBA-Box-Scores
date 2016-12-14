@@ -46,7 +46,11 @@
 			</ul>
 		</div>
 		<!-- https://jqueryui.com/datepicker/ -->
-		<p>Date: <input id="datepicker" type="text"></p>
+		<form method="POST" id="date-form">
+			{% csrf_token %}
+			<p>Date: <input id="datepicker" type="text"></p>
+		</form>
+		
 		<div class=".container-fluid">
 			<div class="row">
 				<div class="col-md-12">
