@@ -57,6 +57,8 @@ $( function(){
 			success : function(json) {
 				console.log(json);
 				gameID = json.gameID;
+				teams = json.teams;
+				$('#teamNames').text(teams[0] + " vs. " + teams[1]);
 				homeTeamScores = json.quarterPoints[0];
 				awayTeamScores = json.quarterPoints[1];
 				createBarGraph(json.gameID, homeTeamScores, awayTeamScores);
