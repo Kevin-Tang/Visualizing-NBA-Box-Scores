@@ -35,11 +35,19 @@ def getPointsbyQuarter(gameID):
         for quarter in range(1, 5):
             Qtr = 'PTS_QTR' + str(quarter)
             quarterPoints_column = lineScore[Qtr]
-            quarterPoints.extend(str(item) for item in quarterPoints_column)
+            quarterPoints.extend(int(item) for item in quarterPoints_column)
             # quarterPoints.extend(item[Qtr] for item in lineScore) # This doesn't work in Python 2
         print(quarterPoints)
-        Team1 = quarterPoints[::2]
-        Team2 = quarterPoints[1:len(quarterPoints):2]
+        Team1 = [0] # initialize array with 0
+        Team1.extend(quarterPoints[::2])
+        Team2 = [0]
+        Team2.extend(quarterPoints[1:len(quarterPoints):2])
+        # Append total points (PTS) to the quarterPoints arrays
+        totalPoints = []
+        PTS_column = lineScore['PTS']
+        totalPoints.extend(int(item) for item in PTS_column)
+        Team1.append(totalPoints[0])
+        Team2.append(totalPoints[1])
         quarterPoints = [Team1, Team2]
         return quarterPoints
     

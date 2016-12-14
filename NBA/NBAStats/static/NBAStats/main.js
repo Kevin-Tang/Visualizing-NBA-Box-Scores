@@ -55,9 +55,11 @@ $( function(){
 				gameID : gameID
 			},
 			success : function(json) {
-				console.log("success: " + gameID);
 				console.log(json);
-				createBarChart(json.gameID);
+				gameID = json.gameID;
+				homeTeamScores = json.quarterPoints[0];
+				awayTeamScores = json.quarterPoints[1];
+				createBarGraph(json.gameID, homeTeamScores, awayTeamScores);
 			},
 
 			error : function(xhr,errmsg,err) {
@@ -69,9 +71,68 @@ $( function(){
 	}
 
 	// creates the bar chart for quarter scores
-	function createBarChart(gameID) {
-		console.log("you called createBarChart()"); // sanity check
-		console.log("the gameID is " + gameID);
+	function createBarGraph(gameID, homeTeamScores, awayTeamScores) {
+		deleteBarGraph();
+		console.log("you called createBarGraph()"); // sanity check
+		console.log("the gameID is " + gameID); // sanity check
+		var barCtx = $("#BarGraph");
+		var barData = {
+		labels: ["Start", "Q1", "Q2", "Q3", "Q4", "Total"],
+		datasets: [
+
+		       {
+		           label: "Team_1",
+		           backgroundColor: [
+		                   'rgba(255, 99, 132, 0.2)',
+		                   'rgba(54, 162, 235, 0.2)',
+		                   'rgba(255, 206, 86, 0.2)',
+		                   'rgba(75, 192, 192, 0.2)',
+		                   'rgba(153, 102, 255, 0.2)',
+		                   'rgba(203, 15, 15, 0.2)'
+		           ],
+		           borderColor: [
+		                   'rgba(255,99,132,1)',
+		                   'rgba(54, 162, 235, 1)',
+		                   'rgba(255, 206, 86, 1)',
+		                   'rgba(75, 192, 192, 1)',
+		                   'rgba(153, 102, 255, 1)',
+		                   'rgba(200, 120, 24, 1)'
+		           ],
+		           borderWidth: 1,
+		           data: homeTeamScores //[0, 20, 28, 35, 25, 108]
+		       },
+		       {
+		           label: "Team_2",
+		           backgroundColor: [
+		                   'rgba(255, 99, 132, 0.2)',
+		                   'rgba(54, 162, 235, 0.2)',
+		                   'rgba(255, 206, 86, 0.2)',
+		                   'rgba(75, 192, 192, 0.2)',
+		                   'rgba(153, 102, 255, 0.2)',
+		                   'rgba(203, 15, 15, 0.2)'
+		           ],
+		           borderColor: [
+		                   'rgba(255,99,132,1)',
+		                   'rgba(54, 162, 235, 1)',
+		                   'rgba(15, 206, 246, 1)',
+		                   'rgba(75, 192, 192, 1)',
+		                   'rgba(153, 102, 255, 1)',
+		                   'rgba(40, 120, 24, 1)'
+		           ],
+		           data: awayTeamScores //[0, 25, 30, 30, 25, 110]
+		       }
+		   ]
+		};
+		var BarGraph = new Chart(barCtx, {
+			type: 'bar',
+			data: barData
+		});
+		console.log("Bar graph successfully created");
+	}
+
+	function deleteBarGraph() {
+		$("#BarGraph").remove();
+		$("#BarGraphContainer").append("<canvas id='BarGraph'></canvas>");
 	}
 
 
@@ -132,58 +193,6 @@ $( function(){
 });
 
 
-var barCtx = document.getElementById('myBarGraph');
-var barData = {
-labels: ["Start", "Q1", "Q2", "Q3", "Q4", "Total"],
-datasets: [
-
-       {
-           label: "Team_1",
-           backgroundColor: [
-                   'rgba(255, 99, 132, 0.2)',
-                   'rgba(54, 162, 235, 0.2)',
-                   'rgba(255, 206, 86, 0.2)',
-                   'rgba(75, 192, 192, 0.2)',
-                   'rgba(153, 102, 255, 0.2)',
-                   'rgba(203, 15, 15, 0.2)'
-           ],
-           borderColor: [
-                   'rgba(255,99,132,1)',
-                   'rgba(54, 162, 235, 1)',
-                   'rgba(255, 206, 86, 1)',
-                   'rgba(75, 192, 192, 1)',
-                   'rgba(153, 102, 255, 1)',
-                   'rgba(200, 120, 24, 1)'
-           ],
-           borderWidth: 1,
-           data: [0, 20, 28, 35, 25, 108]
-       },
-       {
-           label: "Team_2",
-           backgroundColor: [
-                   'rgba(255, 99, 132, 0.2)',
-                   'rgba(54, 162, 235, 0.2)',
-                   'rgba(255, 206, 86, 0.2)',
-                   'rgba(75, 192, 192, 0.2)',
-                   'rgba(153, 102, 255, 0.2)',
-                   'rgba(203, 15, 15, 0.2)'
-           ],
-           borderColor: [
-                   'rgba(255,99,132,1)',
-                   'rgba(54, 162, 235, 1)',
-                   'rgba(15, 206, 246, 1)',
-                   'rgba(75, 192, 192, 1)',
-                   'rgba(153, 102, 255, 1)',
-                   'rgba(40, 120, 24, 1)'
-           ],
-           data: [0, 25, 30, 30, 25, 110]
-       }
-   ]
-};
-var myBarChart = new Chart(barCtx, {
- type: 'bar',
- data: barData
-});
 
 
 
