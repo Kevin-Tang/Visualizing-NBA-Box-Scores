@@ -1,5 +1,7 @@
 from nba_py import game, Scoreboard
 from datetime import datetime
+import re
+
 
 def getGameID(month, day, year):
     """
@@ -10,11 +12,13 @@ def getGameID(month, day, year):
     """
     # TODAY = datetime.today()
     s = Scoreboard(month, day, year)
-    # game_ids = [item['GAME_ID'] for item in s.game_header()] # This doesn't work in Python 2
+    # game_ids = [item['GAME_ID'] for item in s.game_header()]  # This doesn't work in Python 2
     game_ids_column = s.game_header()['GAME_ID']
-    game_ids = [ str(item) for item in game_ids_column]
+    # game_ids = [ str(item) for item in game_ids]
+    game_ids = [str(item) for item in game_ids_column]
     # ['0021600331', '0021600332', '0021600333', '0021600334', '0021600335', '0021600336']
     return game_ids
+
 
 def getTeams(gameID):
     box = game.BoxscoreSummary(gameID)
@@ -28,6 +32,7 @@ def getTeams(gameID):
     teams = [homeTeam, awayTeam]
     return teams
 
+
 def getGameIDsToday():
     """
     :return: List of Game IDs today
@@ -37,6 +42,7 @@ def getGameIDsToday():
     game_ids = [item['GAME_ID'] for item in s.game_header()]
     # ['0021600331', '0021600332', '0021600333', '0021600334', '0021600335', '0021600336']
     return game_ids
+
 
 def getPointsbyQuarter(gameID):
     try:
@@ -50,7 +56,7 @@ def getPointsbyQuarter(gameID):
             quarterPoints.extend(int(item) for item in quarterPoints_column)
             # quarterPoints.extend(item[Qtr] for item in lineScore) # This doesn't work in Python 2
         print(quarterPoints)
-        Team1 = [0] # initialize array with 0
+        Team1 = [0]  # initialize array with 0
         Team1.extend(quarterPoints[::2])
         Team2 = [0]
         Team2.extend(quarterPoints[1:len(quarterPoints):2])
@@ -62,10 +68,11 @@ def getPointsbyQuarter(gameID):
         Team2.append(totalPoints[1])
         quarterPoints = [Team1, Team2]
         return quarterPoints
-    
+
     except Exception as e:
         print(str(e))
         print("POINTS was not found. Data is probably unavailble.")
+
 
 def getPointsbyPlayer(month, day, year):
     try:
@@ -79,6 +86,7 @@ def getPointsbyPlayer(month, day, year):
     except Exception as e:
         print(str(e))
         print("POINTS was not found. Data is probably unavailible")
+
 
 def getPlayers(gameID):
     try:
@@ -111,25 +119,40 @@ def getPlayers(gameID):
         print(str(e))
         print("PLAYERS were not found.")
 
-def getPlaybyPlay(month, day, year):
+
+def getPlaybyPlay(gameID):
     try:
-        game_ids = getGameID(month, day, year)
-        pbp = game.PlayByPlay(game_ids[0])
+        pbp = game.PlayByPlay(gameID)
         plays = (pbp.info())
-        #print(plays)
+        playList = []
+        for index, row in plays.iterrows():
+            if row['SCORE'] is not None:
+                data = [row['PERIOD'], row['PCTIMESTRING'], row['HOMEDESCRIPTION'], row['VISITORDESCRIPTION'], row['SCORE']]
+                playList.append(data)
+        """
         playList = [[item['PERIOD'] for item in plays if item['SCORE'] is not None],
                     [item['PCTIMESTRING'] for item in plays if item['SCORE'] is not None],
                     [item['HOMEDESCRIPTION'] for item in plays if item['SCORE'] is not None],
                     [item['VISITORDESCRIPTION'] for item in plays if item['SCORE'] is not None],
                     [item['SCORE'] for item in plays if item['SCORE'] is not None]
         ]
-        #for play in playList:
-        #    print(len(play))
-        return list(zip(*playList))
 
+        playList = list(zip(*playList)) Dont need this for Python 2.7
+        """
+        team1_Data = []
+        team2_Data = []
+        period_Data = []
+        for play in playList:
+            score = (re.findall('\d+', play[4]))
+            team1_Data.append(int(score[0]))
+            team2_Data.append(int(score[1]))
+            period_Data.append("Period: " + str(play[0]) + ", Time: " + str(play[1]))
+
+        return [team1_Data, team2_Data, period_Data]
     except Exception as e:
         print(str(e))
         print("PLAYBYPLAY is unavailible")
+
 
 def main():
     """
@@ -138,8 +161,9 @@ def main():
     print(quarterPoints)
     print(pointsbyPlayer)
     """
-    playbyPlay = getPointsbyQuarter(12, 7, 2016)
-    print(playbyPlay)
+    plays = getPlaybyPlay(12, 17, 2016)
+    # print (plays)
+
 
 if __name__ == '__main__':
     main()
