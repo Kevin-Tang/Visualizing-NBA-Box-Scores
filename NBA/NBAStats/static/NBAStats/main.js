@@ -56,6 +56,8 @@ $( function(){
 			},
 			success : function(json) {
 				console.log(json);
+
+				// Create Bar Graph
 				teams = json.teams;
 				$('#teamNames').text(teams[0] + " vs. " + teams[1]);
 				$('#team1').text(teams[0]);
@@ -63,6 +65,8 @@ $( function(){
 				homeTeamScores = json.quarterPoints[0];
 				awayTeamScores = json.quarterPoints[1];
 				createBarGraph(homeTeamScores, awayTeamScores, teams);
+
+				// Create Pie Graph
 				players = json.players;
 				console.log(players[0]);
 				console.log(players[1]);

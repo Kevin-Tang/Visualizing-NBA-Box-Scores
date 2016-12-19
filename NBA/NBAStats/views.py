@@ -62,8 +62,9 @@ def get_game_data(request):
 
     players = getStats.getPlayers(ID)
 
+    playbyplay = getStats.getPlaybyPlay(ID)
     response_data = {'gameID': ID, 'quarterPoints': quarterPoints, 'teams': teams,
-                     'players': players, 'team1_Score': playbyplay[0], 'team2_Score': playbyplay[1], 'game_timeline': playbyplay[2]}
+                     'players': players, 'playbyplay': playbyplay}
     return HttpResponse(
         json.dumps(response_data),
         content_type="application/json"
