@@ -41,13 +41,13 @@ $( function(){
 	// event handling for click on a game button
 	$(document).on("click", ".game", function() {
 		var gameID = $(this).attr('id');
-		console.log("you clicked on game: " + gameID); // sanity check
+		console.log("You clicked on game: " + gameID); // sanity check
 		showStats(gameID);
 	});
 
 	// wrapper function for loading and visualizing the game stats
 	function showStats(gameID) {
-		console.log("you called showStats() with game: " + gameID); // sanity check
+		console.log("You called showStats() with game: " + gameID); // sanity check
 		$.ajax({
 			url : "get_game_data/", // the endpoint
 			type : "POST", // http method
@@ -60,8 +60,12 @@ $( function(){
 				// Create Bar Graph
 				teams = json.teams;
 				$('#teamNames').text(teams[0] + " vs. " + teams[1]);
-				$('#team1').text(teams[0]);
-				$('#team2').text(teams[1]);
+                $('#bGraphName').text("Team Points by Quarter");
+				$('#team1').text("Home Team: " + teams[0]);
+				$('#team1PieChart').text("Score Contribution");
+				$('#team2').text("Away Team: " + teams[1]);
+				$('#team2PieChart').text("Score Contribution");
+
 				homeTeamScores = json.quarterPoints[0];
 				awayTeamScores = json.quarterPoints[1];
 				createBarGraph(homeTeamScores, awayTeamScores, teams);
@@ -78,7 +82,10 @@ $( function(){
 
 				// Create Line Chart
                 plays = json.playbyplay;
-                createLineChart(plays[2], plays[0], plays[1]);
+                $('#playbyplay').text("Score Timeline")
+                createLineChart(plays[2], plays[0], plays[1], teams);
+
+                $('#aboutProject').show()
 			},
 
 			error : function(xhr,errmsg,err) {
@@ -87,72 +94,6 @@ $( function(){
 			}
 		});
 
-	}
-
-	// creates the line chart for plays of the game
-    function createLineChart(period_Data, team1_Data, team2_Data) {
-	    deleteLineChart();
-	    console.log("You called createLineChart()"); // sanity check
-        var lineCtx = document.getElementById('myLineChart');
-        var lineData = {
-            labels: period_Data,
-            datasets: [
-                {
-                    label: "Team_1",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "rgba(75,192,192,0.4)",
-                    borderColor: "rgba(75,192,192,1)",
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    borderJoinStyle: 'miter',
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointBackgroundColor: "#fff",
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,
-                    data: team1_Data,
-                    spanGaps: false
-                },
-                {
-                    label: "Team_2",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "rgba(1,250,40,0.4)",
-                    borderColor: "rgba(2,230,192,1)",
-                    borderCapStyle: 'butt',
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    borderJoinStyle: 'miter',
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointBackgroundColor: "#fff",
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,
-                    data: team2_Data,
-                    spanGaps: false
-                }
-        ]
-         };
-         var myLineChart = new Chart(lineCtx, {
-             type: 'line',
-             data: lineData
-         });
-         console.log("Line chart successfully created");
-    }
-
-    function deleteLineChart() {
-		$("#myLineChart").remove();
-		$("#LineChartContainer").append("<canvas id='myLineChart'></canvas>");
 	}
 
 	// creates the bar chart for quarter scores
@@ -167,42 +108,42 @@ $( function(){
 			   {
 				   label: teams[0],
 				   backgroundColor: [
-						   'rgba(255, 99, 132, 0.2)',
-						   'rgba(54, 162, 235, 0.2)',
-						   'rgba(255, 206, 86, 0.2)',
-						   'rgba(75, 192, 192, 0.2)',
-						   'rgba(153, 102, 255, 0.2)',
-						   'rgba(203, 15, 15, 0.2)'
-				   ],
+				       '#49b880',
+                       '#49b880',
+                       '#49b880',
+                       '#49b880',
+                       '#49b880',
+                       '#49b880'
+                   ],
 				   borderColor: [
-						   'rgba(255,99,132,1)',
-						   'rgba(54, 162, 235, 1)',
-						   'rgba(255, 206, 86, 1)',
-						   'rgba(75, 192, 192, 1)',
-						   'rgba(153, 102, 255, 1)',
-						   'rgba(200, 120, 24, 1)'
-				   ],
+				       '#5BCE20',
+                       '#5BCE20',
+                       '#5BCE20',
+                       '#5BCE20',
+                       '#5BCE20',
+                       '#5BCE20'
+                   ],
 				   borderWidth: 1,
 				   data: homeTeamScores
 			   },
 			   {
 				   label: teams[1],
 				   backgroundColor: [
-						   'rgba(255, 99, 132, 0.2)',
-						   'rgba(54, 162, 235, 0.2)',
-						   'rgba(255, 206, 86, 0.2)',
-						   'rgba(75, 192, 192, 0.2)',
-						   'rgba(153, 102, 255, 0.2)',
-						   'rgba(203, 15, 15, 0.2)'
+                       '#E84A5f',
+                       '#E84A5f',
+                       '#E84A5f',
+                       '#E84A5f',
+                       '#E84A5f',
+                       '#E84A5f'
 				   ],
 				   borderColor: [
-						   'rgba(255,99,132,1)',
-						   'rgba(54, 162, 235, 1)',
-						   'rgba(15, 206, 246, 1)',
-						   'rgba(75, 192, 192, 1)',
-						   'rgba(153, 102, 255, 1)',
-						   'rgba(40, 120, 24, 1)'
-				   ],
+				       '#243D6C',
+                       '#243D6C',
+                       '#243D6C',
+                       '#243D6C',
+                       '#243D6C',
+                       '#243D6C'
+                   ],
 				   data: awayTeamScores
 			   }
 		   ]
@@ -237,7 +178,7 @@ $( function(){
 			   backgroundColor: colors1
 		   }]
 		};
-		// For a pie chart
+		// For a Pie chart
 		var myPieChart = new Chart(pieCtx1,{
 		 type: 'pie',
 		 data: data1
@@ -267,7 +208,8 @@ $( function(){
 			   backgroundColor: colors2
 		   }]
 		};
-		// For a pie chart
+
+		// For a Pie chart
 		var myPieChart = new Chart(pieCtx2,{
 		 type: 'pie',
 		 data: data2
@@ -279,18 +221,81 @@ $( function(){
 		$("#myPieChart2Container").append("<canvas id='myPieChart2'></canvas>");
 	}
 
+		// creates the line chart for plays of the game
+    function createLineChart(period_Data, homeTeam, awayTeam, teams) {
+	    deleteLineChart();
+	    console.log("You called createLineChart()"); // sanity check
+        var lineCtx = document.getElementById('myLineChart');
+        var lineData = {
+            labels: period_Data,
+            datasets: [
+                {
+                    label: teams[0],
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "#ff000a",
+                    borderColor: "#999999",
+                    borderCapStyle: 'round',
+                    borderWidth: 5,
+                    borderJoinStyle: 'bevel',
+                    pointBorderColor: "#ff000a",
+                    pointBackgroundColor: "#999999",
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 7,
+                    pointHoverBackgroundColor: "#ff000a",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: homeTeam,
+                    spanGaps: false
+                },
+                {
+                    label: teams[1],
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "#0033CC",
+                    borderColor: "#2bcc1a",
+                    borderCapStyle: 'round',
+                    borderWidth: 5,
+                    borderJoinStyle: 'bevel',
+                    pointBorderColor: "#0033CC",
+                    pointBackgroundColor: "#2bcc1a",
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 7,
+                    pointHoverBackgroundColor: "#0033CC",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: awayTeam,
+                    spanGaps: false
+                }
+        ]
+         };
+         var myLineChart = new Chart(lineCtx, {
+             type: 'line',
+             data: lineData
+         });
+         console.log("Line chart successfully created");
+    }
+
+    function deleteLineChart() {
+		$("#myLineChart").remove();
+		$("#LineChartContainer").append("<canvas id='myLineChart'></canvas>");
+	}
+
 	function getRandomColor() {
 		var letters = '0123456789ABCDEF'.split('');
 		var color = '#';
-		for (var i = 0; i < 6; i++ ) {
+		for (var i = 0; i < 3; i++ ) {
 			color += letters[Math.floor(Math.random() * 16)];
 		}
 		return color;
 	}
 
-
-// Code below is from Django documentation
-// It enables AJAX to pass the csrf_token
+    // Code below is from Django documentation
+    // It enables AJAX to pass the csrf_token
 
 	// This function gets cookie with a given name
 	function getCookie(name) {

@@ -139,16 +139,16 @@ def getPlaybyPlay(gameID):
 
         playList = list(zip(*playList)) Dont need this for Python 2.7
         """
-        team1_Data = []
-        team2_Data = []
+        homeTeam = []
+        awayTeam = []
         period_Data = []
         for play in playList:
             score = (re.findall('\d+', play[4]))
-            team1_Data.append(int(score[0]))
-            team2_Data.append(int(score[1]))
+            homeTeam.append(int(score[1]))
+            awayTeam.append(int(score[0]))
             period_Data.append("Period: " + str(play[0]) + ", Time: " + str(play[1]))
 
-        return [team1_Data, team2_Data, period_Data]
+        return [homeTeam, awayTeam, period_Data]
     except Exception as e:
         print(str(e))
         print("PLAYBYPLAY is unavailible")
