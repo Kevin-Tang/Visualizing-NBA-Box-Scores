@@ -73,9 +73,12 @@ $( function(){
 				console.log(players[2]);
 				console.log(players[3]);
 
-
 				createPieGraph1(players[0], players[1]);
 				createPieGraph2(players[2], players[3]);
+
+				// Create Line Chart
+                plays = json.playbyplay;
+                createLineChart(plays[2], plays[0], plays[1]);
 			},
 
 			error : function(xhr,errmsg,err) {
@@ -84,6 +87,72 @@ $( function(){
 			}
 		});
 
+	}
+
+	// creates the line chart for plays of the game
+    function createLineChart(period_Data, team1_Data, team2_Data) {
+	    deleteLineChart();
+	    console.log("You called createLineChart()"); // sanity check
+        var lineCtx = document.getElementById('myLineChart');
+        var lineData = {
+            labels: period_Data,
+            datasets: [
+                {
+                    label: "Team_1",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: team1_Data,
+                    spanGaps: false
+                },
+                {
+                    label: "Team_2",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "rgba(1,250,40,0.4)",
+                    borderColor: "rgba(2,230,192,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: team2_Data,
+                    spanGaps: false
+                }
+        ]
+         };
+         var myLineChart = new Chart(lineCtx, {
+             type: 'line',
+             data: lineData
+         });
+         console.log("Line chart successfully created");
+    }
+
+    function deleteLineChart() {
+		$("#myLineChart").remove();
+		$("#LineChartContainer").append("<canvas id='myLineChart'></canvas>");
 	}
 
 	// creates the bar chart for quarter scores

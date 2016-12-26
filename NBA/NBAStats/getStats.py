@@ -161,8 +161,9 @@ def main():
     print(quarterPoints)
     print(pointsbyPlayer)
     """
-    plays = getPlaybyPlay(12, 17, 2016)
-    # print (plays)
+    id = getGameID(12, 20, 2016)
+    plays = getPlaybyPlay(id[1])
+    print (plays)
 
 
 if __name__ == '__main__':
