@@ -15,6 +15,10 @@ def getGameID(month, day, year):
 
 
 def getTeams(gameID):
+    """
+    :param gameID:
+    :return: List of team names for the input GameID
+    """
     box = game.BoxscoreSummary(gameID)
     lineScore = box.line_score()
     teamCityNames = [item['TEAM_CITY_NAME'] for item in lineScore]
@@ -36,6 +40,10 @@ def getGameIDsToday():
 
 
 def getPointsbyQuarter(gameID):
+    """
+    :param gameID:
+    :return: Returns a list of two lists objects of team poitns by quarters
+    """
     try:
         box = game.BoxscoreSummary(gameID)
         lineScore = (box.line_score())
@@ -60,6 +68,12 @@ def getPointsbyQuarter(gameID):
 
 
 def getPointsbyPlayer(month, day, year):
+    """
+    :param month:
+    :param day:
+    :param year:
+    :return: a list of all points by players
+    """
     try:
         game_ids = getGameID(month, day, year)
         box = game.Boxscore(game_ids[0])
@@ -74,10 +88,13 @@ def getPointsbyPlayer(month, day, year):
 
 
 def getPlayers(gameID):
+    """
+    :param gameID:
+    :return: returns the list of players and their scores for both home and away teams for the given input GameID
+    """
     try:
         box = game.Boxscore(gameID)
         playerStats = box.player_stats()
-        played = []
         teamID = []
         awayPlayers = []
         homePlayers = []
@@ -85,17 +102,16 @@ def getPlayers(gameID):
         homeScores = []
         for player in playerStats:
             if player['MIN'] != None:
-                played.append(player['PLAYER_NAME'])
-            if player['TEAM_ID'] not in teamID:
-                teamID.append(player['TEAM_ID'])
-            if player['TEAM_ID'] == teamID[0]:
-                awayPlayers.append(player['PLAYER_NAME'])
-                awayScores.append(player['PTS'])
-            elif player['TEAM_ID'] == teamID[1]:
-                homePlayers.append(player['PLAYER_NAME'])
-                homeScores.append(player['PTS'])
-            else:
-                continue
+                if player['TEAM_ID'] not in teamID:
+                    teamID.append(player['TEAM_ID'])
+                if player['TEAM_ID'] == teamID[0]:
+                    awayPlayers.append(player['PLAYER_NAME'])
+                    awayScores.append(player['PTS'])
+                elif player['TEAM_ID'] == teamID[1]:
+                    homePlayers.append(player['PLAYER_NAME'])
+                    homeScores.append(player['PTS'])
+                else:
+                    continue
         return [homePlayers, homeScores, awayPlayers, awayScores]
     except Exception as e:
         print(str(e))
@@ -103,15 +119,13 @@ def getPlayers(gameID):
 
 
 def getPlaybyPlay(gameID):
+    """
+    :param gameID:
+    :return: return a list of plays by home and away team for the input GameId
+    """
     try:
         pbp = game.PlayByPlay(gameID)
         plays = (pbp.info())
-        """
-        for index, row in plays.iterrows():
-            if row['SCORE'] is not None:
-                data = [row['PERIOD'], row['PCTIMESTRING'], row['HOMEDESCRIPTION'], row['VISITORDESCRIPTION'], row['SCORE']]
-                playList.append(data)
-        """
         playList = [[item['PERIOD'] for item in plays if item['SCORE'] is not None],
                     [item['PCTIMESTRING'] for item in plays if item['SCORE'] is not None],
                     [item['HOMEDESCRIPTION'] for item in plays if item['SCORE'] is not None],
@@ -122,13 +136,6 @@ def getPlaybyPlay(gameID):
         homeTeam = []
         awayTeam = []
         period_Data = []
-        """
-        for play in playList:
-            score = (re.findall('\d+', play[4]))
-            homeTeam.append(int(score[1]))
-            awayTeam.append(int(score[0]))
-            period_Data.append("Period: " + str(play[0]) + ", Time: " + str(play[1]))
-        """
         for play in playList:
             homeTeam.append(int(play[4].split()[2]))
             awayTeam.append(int(play[4].split()[0]))
@@ -146,7 +153,8 @@ def main():
     #idToday = getGameIDsToday()
     #ptsbyQ = getPointsbyQuarter(id[0])
     #players = getPlayers(id[0])
-    pointsbyPlayer = getPointsbyPlayer(12, 20, 2016)
+    #pointsbyPlayer = getPointsbyPlayer(12, 20, 2016)
+    print(id)
 
 
 if __name__ == '__main__':
