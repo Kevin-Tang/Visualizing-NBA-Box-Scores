@@ -10,23 +10,15 @@ def getGameID(month, day, year):
     :return: List of Game IDs for the input date
     """
     s = Scoreboard(month, day, year)
-    game_ids = [item['GAME_ID'] for item in s.game_header()]  # This doesn't work in Python2
-    # game_ids_column = s.game_header()['GAME_ID']  # Use this instead for Python2
-    # game_ids = [str(item) for item in game_ids_column]  # Use this instead for Python2
+    game_ids = [item['GAME_ID'] for item in s.game_header()]
     return game_ids
 
 
 def getTeams(gameID):
     box = game.BoxscoreSummary(gameID)
     lineScore = box.line_score()
-    print ("LineScore")
-    print (lineScore)
     teamCityNames = [item['TEAM_CITY_NAME'] for item in lineScore]
-    # teamCityNames_column = lineScore['TEAM_CITY_NAME']
-    # teamCityNames = [str(item) for item in teamCityNames_column]
     teamNicknames = [item['TEAM_NICKNAME'] for item in lineScore]
-    # teamNicknames_column = lineScore['TEAM_NICKNAME']
-    # teamNicknames = [str(item) for item in teamNicknames_column]
     homeTeam = teamCityNames[0] + " " + teamNicknames[0]
     awayTeam = teamCityNames[1] + " " + teamNicknames[1]
     teams = [homeTeam, awayTeam]
@@ -47,27 +39,21 @@ def getPointsbyQuarter(gameID):
     try:
         box = game.BoxscoreSummary(gameID)
         lineScore = (box.line_score())
-        print(lineScore)
         quarterPoints = []
         for quarter in range(1, 5):
             Qtr = 'PTS_QTR' + str(quarter)
-            quarterPoints_column = lineScore[Qtr]
-            quarterPoints.extend(int(item) for item in quarterPoints_column)
-            # quarterPoints.extend(item[Qtr] for item in lineScore) # This doesn't work in Python 2
-        print(quarterPoints)
-        Team1 = [0]  # initialize array with 0
-        Team1.extend(quarterPoints[::2])
-        Team2 = [0]
-        Team2.extend(quarterPoints[1:len(quarterPoints):2])
+            quarterPoints.extend(int(item[Qtr]) for item in lineScore) # This doesn't work in Python 2
+        homeTeam = [0]  # initialize array with 0
+        homeTeam.extend(quarterPoints[::2])
+        awayTeam = [0]
+        awayTeam.extend(quarterPoints[1:len(quarterPoints):2])
         # Append total points (PTS) to the quarterPoints arrays
         totalPoints = []
-        PTS_column = lineScore['PTS']
-        totalPoints.extend(int(item) for item in PTS_column)
-        Team1.append(totalPoints[0])
-        Team2.append(totalPoints[1])
-        quarterPoints = [Team1, Team2]
+        totalPoints.extend(int(item["PTS"]) for item in lineScore)
+        homeTeam.append(totalPoints[0])
+        awayTeam.append(totalPoints[1])
+        quarterPoints = [homeTeam, awayTeam]
         return quarterPoints
-
     except Exception as e:
         print(str(e))
         print("POINTS was not found. Data is probably unavailble.")
@@ -91,29 +77,26 @@ def getPlayers(gameID):
     try:
         box = game.Boxscore(gameID)
         playerStats = box.player_stats()
-        print (playerStats)
         played = []
-        for index in range(len(playerStats)):
-            if (playerStats['MIN'][index] != None):
-                played.append(index)
-        playersList1 = []
-        playersList2 = []
-        playersScores1 = []
-        playersScores2 = []
-        for index in played:
-            if playerStats['TEAM_ID'][index] == playerStats['TEAM_ID'][0]:
-                playersList1.append(str(playerStats['PLAYER_NAME'][index]))
-                playersScores1.append(int(playerStats['PTS'][index]))
+        teamID = []
+        awayPlayers = []
+        homePlayers = []
+        awayScores = []
+        homeScores = []
+        for player in playerStats:
+            if player['MIN'] != None:
+                played.append(player['PLAYER_NAME'])
+            if player['TEAM_ID'] not in teamID:
+                teamID.append(player['TEAM_ID'])
+            if player['TEAM_ID'] == teamID[0]:
+                awayPlayers.append(player['PLAYER_NAME'])
+                awayScores.append(player['PTS'])
+            elif player['TEAM_ID'] == teamID[1]:
+                homePlayers.append(player['PLAYER_NAME'])
+                homeScores.append(player['PTS'])
             else:
-                playersList2.append(str(playerStats['PLAYER_NAME'][index]))
-                playersScores2.append(int(playerStats['PTS'][index]))
-        # playersScores = [int(shit) for shit in playerStats['PTS']]
-        # print (playersList)
-        # print (playersScores)
-        # playersList = [str(item) for item in players_column if item['MIN'] is not None]
-        # playersList = [item['PLAYER_NAME'] for item in playerStats if item['MIN'] is not None]
-        return [playersList2, playersScores2, playersList1, playersScores1]
-
+                continue
+        return [homePlayers, homeScores, awayPlayers, awayScores]
     except Exception as e:
         print(str(e))
         print("PLAYERS were not found.")
@@ -123,7 +106,7 @@ def getPlaybyPlay(gameID):
     try:
         pbp = game.PlayByPlay(gameID)
         plays = (pbp.info())
-        playList = []
+        """
         for index, row in plays.iterrows():
             if row['SCORE'] is not None:
                 data = [row['PERIOD'], row['PCTIMESTRING'], row['HOMEDESCRIPTION'], row['VISITORDESCRIPTION'], row['SCORE']]
@@ -135,18 +118,21 @@ def getPlaybyPlay(gameID):
                     [item['VISITORDESCRIPTION'] for item in plays if item['SCORE'] is not None],
                     [item['SCORE'] for item in plays if item['SCORE'] is not None]
         ]
-
-        playList = list(zip(*playList)) Dont need this for Python 2.7
-        """
+        playList = list(zip(*playList)) # Dont need this for Python 2.7
         homeTeam = []
         awayTeam = []
         period_Data = []
+        """
         for play in playList:
             score = (re.findall('\d+', play[4]))
             homeTeam.append(int(score[1]))
             awayTeam.append(int(score[0]))
             period_Data.append("Period: " + str(play[0]) + ", Time: " + str(play[1]))
-
+        """
+        for play in playList:
+            homeTeam.append(int(play[4].split()[2]))
+            awayTeam.append(int(play[4].split()[0]))
+            period_Data.append("Period: " + str(play[0]) + ", Time: " + str(play[1]))
         return [homeTeam, awayTeam, period_Data]
     except Exception as e:
         print(str(e))
@@ -154,15 +140,13 @@ def getPlaybyPlay(gameID):
 
 
 def main():
-    """
-    quarterPoints = getPointsbyQuarter() # Uncomment to run
-    pointsbyPlayer = getPointsbyPlayer() # Uncomment to run
-    print(quarterPoints)
-    print(pointsbyPlayer)
-    """
     id = getGameID(12, 20, 2016)
-    plays = getPlaybyPlay(id[1])
-    print (plays)
+    #plays = getPlaybyPlay(id[1])
+    #teams = getTeams(id[1])
+    #idToday = getGameIDsToday()
+    #ptsbyQ = getPointsbyQuarter(id[0])
+    #players = getPlayers(id[0])
+    pointsbyPlayer = getPointsbyPlayer(12, 20, 2016)
 
 
 if __name__ == '__main__':
