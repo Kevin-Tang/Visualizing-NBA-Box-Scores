@@ -1,6 +1,5 @@
 from nba_py import game, Scoreboard
 from datetime import datetime
-import re
 
 
 def getGameID(month, day, year):
@@ -10,23 +9,24 @@ def getGameID(month, day, year):
     :param year:
     :return: List of Game IDs for the input date
     """
-    # TODAY = datetime.today()
     s = Scoreboard(month, day, year)
-    # game_ids = [item['GAME_ID'] for item in s.game_header()]  # This doesn't work in Python 2
-    game_ids_column = s.game_header()['GAME_ID']
-    # game_ids = [ str(item) for item in game_ids]
-    game_ids = [str(item) for item in game_ids_column]
-    # ['0021600331', '0021600332', '0021600333', '0021600334', '0021600335', '0021600336']
+    game_ids = [item['GAME_ID'] for item in s.game_header()]  # This doesn't work in Python2
+    # game_ids_column = s.game_header()['GAME_ID']  # Use this instead for Python2
+    # game_ids = [str(item) for item in game_ids_column]  # Use this instead for Python2
     return game_ids
 
 
 def getTeams(gameID):
     box = game.BoxscoreSummary(gameID)
-    lineScore = (box.line_score())
-    teamCityNames_column = lineScore['TEAM_CITY_NAME']
-    teamCityNames = [str(item) for item in teamCityNames_column]
-    teamNicknames_column = lineScore['TEAM_NICKNAME']
-    teamNicknames = [str(item) for item in teamNicknames_column]
+    lineScore = box.line_score()
+    print ("LineScore")
+    print (lineScore)
+    teamCityNames = [item['TEAM_CITY_NAME'] for item in lineScore]
+    # teamCityNames_column = lineScore['TEAM_CITY_NAME']
+    # teamCityNames = [str(item) for item in teamCityNames_column]
+    teamNicknames = [item['TEAM_NICKNAME'] for item in lineScore]
+    # teamNicknames_column = lineScore['TEAM_NICKNAME']
+    # teamNicknames = [str(item) for item in teamNicknames_column]
     homeTeam = teamCityNames[0] + " " + teamNicknames[0]
     awayTeam = teamCityNames[1] + " " + teamNicknames[1]
     teams = [homeTeam, awayTeam]
@@ -40,7 +40,6 @@ def getGameIDsToday():
     TODAY = datetime.today()
     s = Scoreboard(TODAY.month, TODAY.day, TODAY.year)
     game_ids = [item['GAME_ID'] for item in s.game_header()]
-    # ['0021600331', '0021600332', '0021600333', '0021600334', '0021600335', '0021600336']
     return game_ids
 
 

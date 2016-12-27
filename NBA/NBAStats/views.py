@@ -1,9 +1,5 @@
 from django.shortcuts import render
 from django.template import loader
-import sys
-# sys.path.append('Visualizing_NBA_Boxscores/nba_py_master')
-sys.path.insert(0, 'Visualizing_NBA_Boxscores/nba_py_master')
-from nba_py import Scoreboard, game
 from . import getStats
 from .models import Game
 
@@ -19,10 +15,10 @@ def index(request):
     return HttpResponse(template.render(request))
 
 def populate_game_buttons(request):
-    u_date = request.POST.get("date")  # this is a unicode format of date
+    u_date = request.POST.get("date")  # unicode format of date
     date = str(u_date)  # convert from unicode to string
 
-    u_month = request.POST.get("month")  # this is a unicode format of month
+    u_month = request.POST.get("month")  # unicode format of month
     month = int(u_month)  # convert from unicode to int
 
     u_day = request.POST.get("day")
@@ -32,12 +28,12 @@ def populate_game_buttons(request):
     year = int(u_year)
 
     game_ids = getStats.getGameID(month, day, year)
-    print (game_ids)
-    for ID in game_ids:
-        game = Game.objects.get_or_create(gameID=ID, gameDate=date)
 
-    game_set = Game.objects.filter(gameDate=date)
-    print (game_set)
+    # for ID in game_ids:
+    #     game = Game.objects.get_or_create(gameID=ID, gameDate=date)
+
+    # game_set = Game.objects.filter(gameDate=date)
+    # print (game_set)
 
     response_data = {}
     response_data['date'] = date
@@ -50,11 +46,12 @@ def populate_game_buttons(request):
 
 def get_game_data(request):
     IDposted = str(request.POST.get("gameID"))
-    print (IDposted)
+    # print (IDposted)
 
-    game = Game.objects.get(gameID=IDposted)
-    ID = game.gameID
-    print ("ID is %s" % ID)
+    ID = IDposted  # to be deleted later when server functions again
+    # game = Game.objects.get(gameID=IDposted)
+    # ID = game.gameID
+    # print ("ID is %s" % ID)
 
     teams = getStats.getTeams(ID)
 
