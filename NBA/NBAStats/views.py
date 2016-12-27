@@ -23,6 +23,11 @@ def populate_game_buttons(request):
     year = int(u_year)
 
     game_ids = getStats.getGameID(month, day, year)
+    teamsList = []
+    for ID in game_ids:
+        teams = getStats.getTeams(ID)
+        buttonText = teams[0] + " vs. " + teams[1]
+        teamsList.append(buttonText)
 
     # for ID in game_ids:
     #     game = Game.objects.get_or_create(gameID=ID, gameDate=date)
@@ -33,6 +38,7 @@ def populate_game_buttons(request):
     response_data = {}
     response_data['date'] = date
     response_data['game_ids'] = game_ids
+    response_data['teamsList'] = teamsList
 
     return HttpResponse(
         json.dumps(response_data),

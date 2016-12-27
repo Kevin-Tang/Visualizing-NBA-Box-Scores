@@ -26,7 +26,7 @@ $( function(){
 				$('#game_buttons').empty(); // delete games from previously selected date
 				$.each(json.game_ids, function(i, val){ // add a button for each game
 					// console.log(i + " " + val);  // print game IDs
-					$('#game_buttons').append("<li><input type='button' value='"+val+"' class='game' id='"+val+"'></li>");
+					$('#game_buttons').append("<li><input type='button' value='"+json.teamsList[i]+"' class='game' id='"+val+"'></li>");
 				});
 				console.log("SUCCESS!"); // sanity check
 			},
