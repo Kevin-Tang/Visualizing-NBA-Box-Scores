@@ -1,6 +1,20 @@
 $( function(){
 
-	$( "#datepicker" ).datepicker({
+	// Caching DOM selectors
+	var $calendar = $("#datepicker");
+	var $gameButtonsList = $("#game_buttons");
+
+	var $teamNames = $('#teamNames');
+	var $bGraphName = $('#bGraphName');
+	var $team1 = $('#team1');
+	var $team1PieChart = $('#team1PieChart');
+	var $team2 = $('#team2');
+	var $team2PieChart = $('#team2PieChart');
+
+	var $BarGraphContainer = $("#BarGraphContainer");
+	// var $BarGraph = $("#BarGraph");
+
+	$calendar.datepicker({
 		onSelect: function(date) {
 			month = date.slice(0,2); // parse out month
 			day = date.slice(3,5);  // parse out 
@@ -23,10 +37,10 @@ $( function(){
 			},
 			success : function(json) {
 				console.log(json); // log the returned json to the console
-				$('#game_buttons').empty(); // delete games from previously selected date
+				$gameButtonsList.empty(); // delete games from previously selected date
 				$.each(json.game_ids, function(i, val){ // add a button for each game
 					// console.log(i + " " + val);  // print game IDs
-					$('#game_buttons').append("<li><input type='button' value='"+json.teamsList[i]+"' class='game' id='"+val+"'></li>");
+					$gameButtonsList.append("<li><input type='button' value='"+json.teamsList[i][0]+" vs. "+json.teamsList[i][1]+"' class='game' id='"+val+"'></li>");
 				});
 				console.log("SUCCESS!"); // sanity check
 			},
@@ -59,12 +73,12 @@ $( function(){
 
 				// Create Bar Graph
 				teams = json.teams;
-				$('#teamNames').text(teams[0] + " vs. " + teams[1]);
-                $('#bGraphName').text("Team Points by Quarter");
-				$('#team1').text("Home Team: " + teams[0]);
-				$('#team1PieChart').text("Score Contribution");
-				$('#team2').text("Away Team: " + teams[1]);
-				$('#team2PieChart').text("Score Contribution");
+				$teamNames.text(teams[0] + " vs. " + teams[1]);
+                $bGraphName.text("Team Points by Quarter");
+				$team1.text("Home Team: " + teams[0]);
+				$team1PieChart.text("Score Contribution");
+				$team2.text("Away Team: " + teams[1]);
+				$team2PieChart.text("Score Contribution");
 
 				homeTeamScores = json.quarterPoints[0];
 				awayTeamScores = json.quarterPoints[1];
@@ -157,7 +171,7 @@ $( function(){
 
 	function deleteBarGraph() {
 		$("#BarGraph").remove();
-		$("#BarGraphContainer").append("<canvas id='BarGraph'></canvas>");
+		$BarGraphContainer.append("<canvas id='BarGraph'></canvas>");
 	}
 
 	function createPieGraph1(players1, scores1) {

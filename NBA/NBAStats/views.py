@@ -26,8 +26,7 @@ def populate_game_buttons(request):
     teamsList = []
     for ID in game_ids:
         teams = getStats.getTeams(ID)
-        buttonText = teams[0] + " vs. " + teams[1]
-        teamsList.append(buttonText)
+        teamsList.append(teams)
 
     # for ID in game_ids:
     #     game = Game.objects.get_or_create(gameID=ID, gameDate=date)
