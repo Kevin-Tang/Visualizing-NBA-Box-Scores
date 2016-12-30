@@ -12,7 +12,6 @@ $( function(){
 	var $team2PieChart = $('#team2PieChart');
 
 	var $BarGraphContainer = $("#BarGraphContainer");
-	// var $BarGraph = $("#BarGraph");
 
 	$calendar.datepicker({
 		onSelect: function(date) {
