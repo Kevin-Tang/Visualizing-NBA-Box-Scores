@@ -19,21 +19,26 @@ $(document).ready(function(){
 			month = date.slice(0,2); // parse out month
 			day = date.slice(3,5);  // parse out 
 			year = date.slice(6);  // parse out year
-			console.log("month is " + month + "\nday is " + day + "\nyear is " + year);
+			// console.log("month is " + month + "\nday is " + day + "\nyear is " + year);
 			populateGameButtons(date, month, day, year);
 		}
 	});
 
-	// Set default date as yesterday
-	$calendar.datepicker("setDate", "-1d");
-	var dateObj = $calendar.datepicker( "getDate" );
-	var date = dateObj.toLocaleString().slice(0, 10);
-	month = date.slice(0,2); // parse out month
-	day = date.slice(3,5);  // parse out 
-	year = date.slice(6);  // parse out year
-	console.log(date);
-	console.log("month is " + month + "\nday is " + day + "\nyear is " + year);
-	populateGameButtons(date, month, day, year);
+	// Initializes the page by setting default date to yesterday and populating game buttons
+	// To be called at the bottom of this file
+	function initializePage() {
+		$calendar.datepicker("setDate", "-1d");
+		var dateObj = $calendar.datepicker( "getDate" );
+		var date = dateObj.toLocaleString().slice(0, 10);
+		month = date.slice(0,2); // parse out month
+		day = date.slice(3,5);  // parse out 
+		year = date.slice(6);  // parse out year
+		// console.log(date);
+		// console.log("month is " + month + "\nday is " + day + "\nyear is " + year);
+		populateGameButtons(date, month, day, year);		
+	}
+
+	
 
 	function populateGameButtons(date, month, day, year){
 		console.log("you called populateGameButtons()");
@@ -427,5 +432,7 @@ $(document).ready(function(){
 			}
 		}
 	});
+
+	initializePage();
 
 });

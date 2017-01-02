@@ -1,10 +1,10 @@
 import json
 from django.template import loader
-from django.views.decorators.csrf import ensure_csrf_cookie
+# from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import HttpResponse
 from . import getStats
 
-@ensure_csrf_cookie  #This decorator forces a view to send the CSRF cookie.
+# @ensure_csrf_cookie  #This decorator forces a view to send the CSRF cookie.
 def index(request):
     template = loader.get_template('NBAStats/index.html')
     return HttpResponse(template.render(request))
@@ -54,13 +54,15 @@ def get_game_data(request):
     # print ("ID is %s" % ID)
 
     teams = getStats.getTeams(ID)
+
     quarterPoints = getStats.getPointsbyQuarter(ID)
+
     players = getStats.getPlayers(ID)
+
     playbyplay = getStats.getPlaybyPlay(ID)
-    gameBoxscore = getStats.getBoxScore(ID)
 
     response_data = {'gameID': ID, 'quarterPoints': quarterPoints, 'teams': teams,
-                     'players': players, 'playbyplay': playbyplay, 'boxscore': gameBoxscore}
+                     'players': players, 'playbyplay': playbyplay}
 
     return HttpResponse(
         json.dumps(response_data),
