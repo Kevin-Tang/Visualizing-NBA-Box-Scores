@@ -21,6 +21,7 @@ def getTeams(gameID):
     """
     box = game.BoxscoreSummary(gameID)
     lineScore = box.line_score()
+    print (lineScore)
     teamCityNames = [item['TEAM_CITY_NAME'] for item in lineScore]
     teamNicknames = [item['TEAM_NICKNAME'] for item in lineScore]
     homeTeam = teamCityNames[0] + " " + teamNicknames[0]

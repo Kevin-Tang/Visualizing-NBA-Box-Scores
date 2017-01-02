@@ -1,4 +1,4 @@
-$( function(){
+$(document).ready(function(){
 
 	// Caching DOM selectors
 	var $calendar = $("#datepicker");
@@ -13,13 +13,18 @@ $( function(){
 
 	var $BarGraphContainer = $("#BarGraphContainer");
 
+
+	var date = $calendar.datepicker( "setDate", "12/31/2016");
+	var currentDate = $calendar.datepicker( "getDate" );
+	console(date);
+
 	$calendar.datepicker({
 		onSelect: function(date) {
 			month = date.slice(0,2); // parse out month
 			day = date.slice(3,5);  // parse out 
 			year = date.slice(6);  // parse out year
-			// console.log("month is " + month + "\nday is " + day + "\nyear is " + year);
-			populateGameButtons(date, month, day, year);
+			console.log("month is " + month + "\nday is " + day + "\nyear is " + year);
+			// populateGameButtons(date, month, day, year);
 		}
 	});
 
