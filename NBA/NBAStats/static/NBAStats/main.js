@@ -29,7 +29,8 @@ $(document).ready(function(){
 	function initializePage() {
 		$calendar.datepicker("setDate", "-1d");
 		var dateObj = $calendar.datepicker( "getDate" );
-		var date = dateObj.toLocaleString().slice(0, 10);
+		var options = {month: '2-digit', day: '2-digit', year: 'numeric'};
+		var date = dateObj.toLocaleDateString('en-US', options);
 		month = date.slice(0,2); // parse out month
 		day = date.slice(3,5);  // parse out 
 		year = date.slice(6);  // parse out year
