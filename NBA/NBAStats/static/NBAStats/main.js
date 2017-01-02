@@ -35,7 +35,7 @@ $(document).ready(function(){
 	year = date.slice(6);  // parse out year
 	console.log(date);
 	console.log("month is " + month + "\nday is " + day + "\nyear is " + year);
-	// populateGameButtons(date, month, day, year);
+	populateGameButtons(date, month, day, year);
 
 	function populateGameButtons(date, month, day, year){
 		console.log("you called populateGameButtons()");
