@@ -14,19 +14,28 @@ $(document).ready(function(){
 	var $BarGraphContainer = $("#BarGraphContainer");
 
 
-	var date = $calendar.datepicker( "setDate", "12/31/2016");
-	var currentDate = $calendar.datepicker( "getDate" );
-	console(date);
-
+	// Initialize datepicker
 	$calendar.datepicker({
+		defaultDate: "-1d",
 		onSelect: function(date) {
 			month = date.slice(0,2); // parse out month
 			day = date.slice(3,5);  // parse out 
 			year = date.slice(6);  // parse out year
 			console.log("month is " + month + "\nday is " + day + "\nyear is " + year);
-			// populateGameButtons(date, month, day, year);
+			populateGameButtons(date, month, day, year);
 		}
 	});
+
+	// Set default date as yesterday
+	$calendar.datepicker("setDate", "-1d");
+	var dateObj = $calendar.datepicker( "getDate" );
+	var date = dateObj.toLocaleString().slice(0, 10);
+	month = date.slice(0,2); // parse out month
+	day = date.slice(3,5);  // parse out 
+	year = date.slice(6);  // parse out year
+	console.log(date);
+	console.log("month is " + month + "\nday is " + day + "\nyear is " + year);
+	// populateGameButtons(date, month, day, year);
 
 	function populateGameButtons(date, month, day, year){
 		console.log("you called populateGameButtons()");
