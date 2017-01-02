@@ -6,6 +6,28 @@
 	background-color: #333;
 }
 
+.game {
+	background-color: white;
+	width: 100px;
+	height: 150px;
+	border: 2px solid #4CAF50; /* Green */
+	font-size: 14px;
+	vertical-align: top;
+	border-radius: 8px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+}
+
+.game:hover {
+	background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.table-hover {
+	font-size: small;
+}
+
 #header li a {
 	display: inline;
 	color: white;
