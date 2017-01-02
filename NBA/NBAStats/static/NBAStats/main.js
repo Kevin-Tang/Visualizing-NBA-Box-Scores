@@ -3,14 +3,12 @@ $( function(){
 	// Caching DOM selectors
 	var $calendar = $("#datepicker");
 	var $gameButtonsList = $("#game_buttons");
-
 	var $teamNames = $('#teamNames');
 	var $bGraphName = $('#bGraphName');
 	var $team1 = $('#team1');
 	var $team1PieChart = $('#team1PieChart');
 	var $team2 = $('#team2');
 	var $team2PieChart = $('#team2PieChart');
-
 	var $BarGraphContainer = $("#BarGraphContainer");
 
 	$calendar.datepicker({
@@ -96,10 +94,11 @@ $( function(){
 
 				// Create Line Chart
                 plays = json.playbyplay;
-                $('#playbyplay').text("Score Timeline")
+                $('#playbyplay').text("Score Timeline");
                 createLineChart(plays[2], plays[0], plays[1], teams);
 
-                $('#aboutProject').show()
+                $('#aboutProject').show();
+				// addBoxscore(json.boxscore[0])
 			},
 
 			error : function(xhr,errmsg,err) {
@@ -307,6 +306,59 @@ $( function(){
 		}
 		return color;
 	}
+	/*
+	function addBoxscore(homeTeam) {
+		var boxscoreDiv = document.getElementById("regBoxscore");
+		var boxTable = document.createElement('table');
+		var boxBody = document.createElement('tbody');
+
+		boxTable.border = '1';
+		boxTable.appendChild(boxBody);
+
+		var heading = [];
+		heading[0] = "Player_Name";
+		heading[1] = "Mins";
+		heading[2] = "FGM";
+		heading[3] = "FG%";
+		heading[4] = "3PM";
+		heading[5] = "3P%";
+		heading[6] = "FTM";
+		heading[7] = "FT%";
+		heading[8] = "REB";
+		heading[9] = "AST";
+		heading[10] = "TOV";
+		heading[11] = "STL";
+		heading[12] = "BLK";
+		heading[13] = "PF";
+		heading[14] = "PTS";
+		heading[15] = "+/-";
+
+		var stock = [];
+		for (i = 0; i < homeTeam.length; i++){
+			stock[i] = homeTeam[i];
+		}
+
+		var tr = document.createElement('tr');
+		boxTable.appendChild(tr);
+		for (i = 0; i < heading.length; i++) {
+			var th = document.createElement('th');
+			th.appendChild(document.createTextNode(heading[i]));
+			tr.appendChild(th);
+		}
+
+    	//TABLE ROWS
+    	for (i = 0; i < stock.length; i++) {
+			var tr = document.createElement('tr');
+        	for (j = 0; j < stock[i].length; j++) {
+            	var td = document.createElement('td');
+            	td.appendChild(document.createTextNode(stock[i][j]));
+            	tr.appendChild(td)
+        	}
+        	boxBody.appendChild(tr);
+    	}
+    	boxscoreDiv.appendChild(boxTable);
+	};
+	*/
 
     // Code below is from Django documentation
     // It enables AJAX to pass the csrf_token
