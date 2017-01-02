@@ -87,6 +87,61 @@ def getPointsbyPlayer(month, day, year):
         print(str(e))
         print("POINTS was not found. Data is probably unavailible")
 
+def getBoxScore(gameID):
+    try:
+        box = game.Boxscore(gameID)
+        playerStats = box.player_stats()
+        #print(playerStats)
+        teamID = []
+        homeTeam = []
+        awayTeam = []
+        for player in playerStats:
+            if player['MIN'] is not None:
+                if player['TEAM_ID'] not in teamID:
+                    teamID.append(player['TEAM_ID'])
+                if player['TEAM_ID'] == teamID[0]:
+                    awayTeam.append([player['PLAYER_NAME'],
+                                     player['MIN'],
+                                     player['FGM'],
+                                     player['FG_PCT'],
+                                     player['FG3M'],
+                                     player['FG3_PCT'],
+                                     player['FTM'],
+                                     player['FT_PCT'],
+                                     player['REB'],
+                                     player['AST'],
+                                     player['TO'],
+                                     player['STL'],
+                                     player['BLK'],
+                                     player['PF'],
+                                     player['PTS'],
+                                     player['PLUS_MINUS']
+                                     ])
+                elif player['TEAM_ID'] == teamID[1]:
+                    homeTeam.append([player['PLAYER_NAME'],
+                                     player['MIN'],
+                                     player['FGM'],
+                                     player['FG_PCT'],
+                                     player['FG3M'],
+                                     player['FG3_PCT'],
+                                     player['FTM'],
+                                     player['FT_PCT'],
+                                     player['REB'],
+                                     player['AST'],
+                                     player['TO'],
+                                     player['STL'],
+                                     player['BLK'],
+                                     player['PF'],
+                                     player['PTS'],
+                                     player['PLUS_MINUS']
+                                     ])
+                else:
+                    continue
+        return [homeTeam, awayTeam]
+    except Exception as e:
+        print(str(e))
+        print("Boxscore unavailible")
+
 
 def getPlayers(gameID):
     """
@@ -155,8 +210,7 @@ def main():
     #ptsbyQ = getPointsbyQuarter(id[0])
     #players = getPlayers(id[0])
     #pointsbyPlayer = getPointsbyPlayer(12, 20, 2016)
-    print(id)
-
+    print(getBoxScore(id))
 
 if __name__ == '__main__':
     main()

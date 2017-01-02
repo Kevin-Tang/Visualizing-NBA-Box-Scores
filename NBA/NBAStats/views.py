@@ -54,15 +54,13 @@ def get_game_data(request):
     # print ("ID is %s" % ID)
 
     teams = getStats.getTeams(ID)
-
     quarterPoints = getStats.getPointsbyQuarter(ID)
-
     players = getStats.getPlayers(ID)
-
     playbyplay = getStats.getPlaybyPlay(ID)
+    gameBoxscore = getStats.getBoxScore(ID)
 
     response_data = {'gameID': ID, 'quarterPoints': quarterPoints, 'teams': teams,
-                     'players': players, 'playbyplay': playbyplay}
+                     'players': players, 'playbyplay': playbyplay, 'boxscore': gameBoxscore}
 
     return HttpResponse(
         json.dumps(response_data),
