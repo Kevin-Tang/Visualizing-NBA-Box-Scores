@@ -10,6 +10,7 @@ $(document).ready(function(){
 	var $team2 = $('#team2');
 	var $team2PieChart = $('#team2PieChart');
 	var $BarGraphContainer = $("#BarGraphContainer");
+	var $advContainer = $("#advContainer");
 
 	// Initialize datepicker
 	$calendar.datepicker({
@@ -411,7 +412,7 @@ $(document).ready(function(){
 	};
 
 	function createAdvancedGraph(home, away, teams) {
-	    // deleteAdv();
+	    deleteAdv();
 		var barCtx = $("#advTeamStats");
 		var barData = {
 		labels: ["TS%", "eFG%", "OREB%", "DREB%", "REB%", "AST%", "AST_RATIO", "AST-TOV", "TO%", "OFF-RATING", "DEF-RATING", "NET-RATING"],
@@ -491,6 +492,11 @@ $(document).ready(function(){
 		});
 		console.log("Advanced Stats graph successfully created");
     }
+
+	function deleteBarGraph() {
+		$("#BarGraph").remove();
+		$BarGraphContainer.append("<canvas id='BarGraph'></canvas>");
+	}
 
     function deleteAdv() {
 	    $("#advTeamStats").remove();
