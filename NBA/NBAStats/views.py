@@ -3,6 +3,8 @@ from django.template import loader
 # from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import HttpResponse
 from . import getStats
+# import getStats # IST THIS GOING TO WORK?
+
 
 # @ensure_csrf_cookie  #This decorator forces a view to send the CSRF cookie.
 def index(request):
