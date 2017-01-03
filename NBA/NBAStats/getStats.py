@@ -10,6 +10,7 @@ def getGameID(month, day, year):
     :return: List of Game IDs for the input date
     """
     s = Scoreboard(month, day, year)
+    print (s.game_header())
     game_ids = [item['GAME_ID'] for item in s.game_header()]
     return game_ids
 
