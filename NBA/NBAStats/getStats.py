@@ -216,17 +216,14 @@ def getTeamAdvanced(gameID):
                       team['OREB_PCT'],
                       team['DREB_PCT'],
                       team['REB_PCT'],
-                      team['AST_PCT'],
-                      team['AST_RATIO'],
+                      team['AST_PCT']])
+        stats.append([team['AST_RATIO'],
                       team['AST_TOV'],
-                      team['TM_TOV_PCT'],
-                      team['OFF_RATING'],
+                      team['TM_TOV_PCT']])
+        stats.append([team['OFF_RATING'],
                       team['DEF_RATING'],
                       team['NET_RATING']])
     return stats
-"""
-{'PACE': 98.17, 'DEF_RATING': 90.7, 'TEAM_ABBREVIATION': 'NOP', 'TEAM_ID': 1610612740, 'START_POSITION': 'F', 'TEAM_CITY': 'New Orleans', 'GAME_ID': '0021600418', 'REB_PCT': 0.041, 'AST_TOV': 0.0, 'AST_PCT': 0.071, 'TM_TOV_PCT': 0.0, 'USG_PCT': 0.025, 'PLAYER_ID': 203524, 'PLAYER_NAME': 'Solomon Hill', 'COMMENT': '', 'OREB_PCT': 0.0, 'MIN': '32:55', 'PIE': 0.041, 'AST_RATIO': 50.0, 'DREB_PCT': 0.081, 'EFG_PCT': 0.5, 'TS_PCT': 0.5, 'NET_RATING': 18.8, 'OFF_RATING': 109.5}
-"""
 
 def getPlayerAdvanced(gameID):
     boxscore = game.BoxscoreAdvanced(gameID);
@@ -263,7 +260,7 @@ def getPlayerAdvanced(gameID):
 
 def main():
     id = getGameID(12, 20, 2016)
-    print(getPlayerAdvanced(id))
+    print(getTeamAdvanced(id))
 
 if __name__ == '__main__':
     main()

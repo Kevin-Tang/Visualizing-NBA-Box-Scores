@@ -10,7 +10,9 @@ $(document).ready(function(){
 	var $team2 = $('#team2');
 	var $team2PieChart = $('#team2PieChart');
 	var $BarGraphContainer = $("#BarGraphContainer");
-	var $advContainer = $("#advContainer");
+	var $advContainer1 = $("#advContainer1");
+	var $advContainer2 = $("#advContainer2");
+	var $advContainer3 = $("#advContainer3");
 
 	// Initialize datepicker
 	$calendar.datepicker({
@@ -115,9 +117,15 @@ $(document).ready(function(){
                 $('#playbyplay').text("Score Timeline");
                 createLineChart(plays[2], plays[0], plays[1], teams);
 
-                $('#advTeamName').text("Team Advanced Stats");
-                createAdvancedGraph(json.teamAdvanced[0], json.teamAdvanced[1], teams);
+                // Create Team Advanced Charts
+                $('#advTeamName1').text("Team Advanced Percentage Statistics");
+                $('#advTeamName2').text("Team Advanced Assist-Turnover Statistics");
+                $('#advTeamName3').text("Team Advanced Rating");
+                createAdvancedGraph1(json.teamAdvanced[0], json.teamAdvanced[3], teams);
+                createAdvancedGraph2(json.teamAdvanced[1], json.teamAdvanced[4], teams);
+                createAdvancedGraph3(json.teamAdvanced[2], json.teamAdvanced[5], teams);
 
+                // Create Regular Boxscore
                 $('#aboutProject').show();
                 $('#boxscoreTitle').show();
 				addBoxscore(json.boxscore[0], json.boxscore[1]);
@@ -411,22 +419,16 @@ $(document).ready(function(){
         boxscoreDiv.appendChild(awayTable);
 	};
 
-	function createAdvancedGraph(home, away, teams) {
-	    deleteAdv();
-		var barCtx = $("#advTeamStats");
+	function createAdvancedGraph1(home, away, teams) {
+	    deleteAdv1();
+		var barCtx = $("#advTeamStats1");
 		var barData = {
-		labels: ["TS%", "eFG%", "OREB%", "DREB%", "REB%", "AST%", "AST_RATIO", "AST-TOV", "TO%", "OFF-RATING", "DEF-RATING", "NET-RATING"],
+		labels: ["TS%", "eFG%", "OREB%", "DREB%", "REB%", "AST%"],
 		datasets: [
 
 			   {
 				   label: teams[0],
 				   backgroundColor: [
-                       '#b8a939',
-                       '#b8a939',
-                       '#b8a939',
-                       '#b8a939',
-                       '#b8a939',
-                       '#b8a939',
                        '#b8a939',
                        '#b8a939',
                        '#b8a939',
@@ -441,13 +443,6 @@ $(document).ready(function(){
                        '#b34c31',
                        '#b34c31',
                        '#b34c31',
-                       '#b34c31',
-                       '#b34c31',
-                       '#b34c31',
-                       '#b34c31',
-                       '#b34c31',
-                       '#b34c31'
-
                    ],
 				   borderWidth: 1,
 				   data: home
@@ -461,20 +456,8 @@ $(document).ready(function(){
                        '#243d6c',
                        '#243d6c',
                        '#243d6c',
-                       '#243d6c',
-                       '#243d6c',
-                       '#243d6c',
-                       '#243d6c',
-                       '#243d6c',
-                       '#243d6c'
 				   ],
 				   borderColor: [
-                       '#18b389',
-                       '#18b389',
-                       '#18b389',
-                       '#18b389',
-                       '#18b389',
-                       '#18b389',
                        '#18b389',
                        '#18b389',
                        '#18b389',
@@ -493,14 +476,111 @@ $(document).ready(function(){
 		console.log("Advanced Stats graph successfully created");
     }
 
-	function deleteBarGraph() {
-		$("#BarGraph").remove();
-		$BarGraphContainer.append("<canvas id='BarGraph'></canvas>");
-	}
+	function createAdvancedGraph2(home, away, teams) {
+	    deleteAdv2();
+		var barCtx = $("#advTeamStats2");
+		var barData = {
+		labels: ["AST_RATIO", "AST-TOV", "TO%"],
+		datasets: [
 
-    function deleteAdv() {
-	    $("#advTeamStats").remove();
-	    $advContainer.append("<canvas id='advTeamStats'></canvas>>");
+			   {
+				   label: teams[0],
+				   backgroundColor: [
+                       '#b8a939',
+                       '#b8a939',
+                       '#b8a939',
+                   ],
+				   borderColor: [
+                       '#b34c31',
+                       '#b34c31',
+                       '#b34c31',
+
+                   ],
+				   borderWidth: 1,
+				   data: home
+			   },
+			   {
+				   label: teams[1],
+				   backgroundColor: [
+                       '#243d6c',
+                       '#243d6c',
+                       '#243d6c',
+				   ],
+				   borderColor: [
+                       '#18b389',
+                       '#18b389',
+                       '#18b389',
+                   ],
+				   data: away
+			   }
+		   ]
+		};
+		var advTeam = new Chart(barCtx, {
+			type: 'horizontalBar',
+			data: barData
+		});
+		console.log("Advanced Stats graph successfully created");
+    }
+
+	function createAdvancedGraph3(home, away, teams) {
+	    deleteAdv3();
+		var barCtx = $("#advTeamStats3");
+		var barData = {
+		labels: ["OFF-RATING", "DEF-RATING", "NET-RATING"],
+		datasets: [
+
+			   {
+				   label: teams[0],
+				   backgroundColor: [
+                       '#b8a939',
+                       '#b8a939',
+                       '#b8a939',
+                   ],
+				   borderColor: [
+                       '#b34c31',
+                       '#b34c31',
+                       '#b34c31',
+
+                   ],
+				   borderWidth: 1,
+				   data: home
+			   },
+			   {
+				   label: teams[1],
+				   backgroundColor: [
+                       '#243d6c',
+                       '#243d6c',
+                       '#243d6c',
+				   ],
+				   borderColor: [
+                       '#18b389',
+                       '#18b389',
+                       '#18b389',
+                   ],
+				   data: away
+			   }
+		   ]
+		};
+		var advTeam = new Chart(barCtx, {
+			type: 'horizontalBar',
+			data: barData
+		});
+		console.log("Advanced Stats graph successfully created");
+    }
+
+    function deleteAdv1() {
+	    $("#advTeamStats1").remove();
+	    $advContainer1.append("<canvas id='advTeamStats1'></canvas>>");
+    }
+
+	function deleteAdv2() {
+	    $("#advTeamStats2").remove();
+	    $advContainer2.append("<canvas id='advTeamStats2'></canvas>>");
+    }
+
+	function deleteAdv3() {
+	    $("#advTeamStats3").remove();
+	    $advContainer3.append("<canvas id='advTeamStats3'></canvas>>");
     }
 
     // Code below is from Django documentation
