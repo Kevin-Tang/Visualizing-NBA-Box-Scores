@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1211728d-71c4-43d4-951a-e9a79895b9c1" name="Default" comment="fixed BoxScore visual">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NBA/NBAStats/getStats.py" afterPath="$PROJECT_DIR$/NBA/NBAStats/getStats.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NBA/NBAStats/static/NBAStats/main.js" afterPath="$PROJECT_DIR$/NBA/NBAStats/static/NBAStats/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NBA/NBAStats/static/NBAStats/styles.css" afterPath="$PROJECT_DIR$/NBA/NBAStats/static/NBAStats/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NBA/NBAStats/templates/NBAStats/index.html" afterPath="$PROJECT_DIR$/NBA/NBAStats/templates/NBAStats/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NBA/NBAStats/views.py" afterPath="$PROJECT_DIR$/NBA/NBAStats/views.py" />
     </list>
     <ignored path="Visualizing-NBA-Box-Scores.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -21,7 +18,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/Visualizing-NBA-Box-Scores$anotherExample.coverage" NAME="anotherExample Coverage Results" MODIFIED="1481243769146" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nba_py-master/examples" />
     <SUITE FILE_PATH="coverage/Visualizing-NBA-Box-Scores$ourExample_2.coverage" NAME="ourExample_2 Coverage Results" MODIFIED="1481248542996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nba_py-master/examples" />
-    <SUITE FILE_PATH="coverage/Visualizing-NBA-Box-Scores$getStats.coverage" NAME="getStats Coverage Results" MODIFIED="1483413571631" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/NBA/NBAStats" />
+    <SUITE FILE_PATH="coverage/Visualizing-NBA-Box-Scores$getStats.coverage" NAME="getStats Coverage Results" MODIFIED="1483469487603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/NBA/NBAStats" />
     <SUITE FILE_PATH="coverage/Visualizing-NBA-Box-Scores$example_game.coverage" NAME="example_game Coverage Results" MODIFIED="1481226753832" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nba_py-master/examples" />
     <SUITE FILE_PATH="coverage/Visualizing-NBA-Box-Scores$tryingStuff.coverage" NAME="tryingStuff Coverage Results" MODIFIED="1481226986491" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nba_py-master/examples" />
     <SUITE FILE_PATH="coverage/Visualizing-NBA-Box-Scores$views.coverage" NAME="views Coverage Results" MODIFIED="1482825588026" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/NBA/NBAStats" />
@@ -38,8 +35,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NBA/NBAStats/templates/NBAStats/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1155">
-              <caret line="104" column="26" lean-forward="true" selection-start-line="104" selection-start-column="26" selection-end-line="104" selection-end-column="26" />
+            <state relative-caret-position="1560">
+              <caret line="104" column="26" lean-forward="false" selection-start-line="104" selection-start-column="26" selection-end-line="104" selection-end-column="26" />
               <folding>
                 <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#li#1;n#ul#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -57,7 +54,7 @@
       <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NBA/NBAStats/static/NBAStats/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
+            <state relative-caret-position="325">
               <caret line="31" column="14" lean-forward="false" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
               <folding />
             </state>
@@ -67,29 +64,9 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NBA/NBAStats/static/NBAStats/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="412" column="0" lean-forward="false" selection-start-line="412" selection-start-column="0" selection-end-line="412" selection-end-column="0" />
-              <folding>
-                <element signature="e#448#769#0" expanded="false" />
-                <element signature="e#934#1442#0" expanded="false" />
-                <element signature="e#1497#2513#0" expanded="false" />
-                <element signature="e#2606#2731#0" expanded="false" />
-                <element signature="e#4566#6015#0" expanded="false" />
-                <element signature="e#6044#6139#0" expanded="false" />
-                <element signature="e#6186#6710#0" expanded="false" />
-                <element signature="e#6740#6849#0" expanded="false" />
-                <element signature="e#6896#7421#0" expanded="false" />
-                <element signature="e#7451#7560#0" expanded="false" />
-                <element signature="e#7681#9848#0" expanded="false" />
-                <element signature="e#9881#9988#0" expanded="false" />
-                <element signature="e#10017#10192#0" expanded="false" />
-                <element signature="e#10221#10511#0" expanded="false" />
-                <element signature="e#10555#12633#0" expanded="false" />
-                <element signature="e#15320#15780#0" expanded="false" />
-                <element signature="e#15921#16034#0" expanded="false" />
-                <element signature="e#16062#16675#0" expanded="false" />
-                <element signature="e#16690#17038#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="394">
+              <caret line="415" column="23" lean-forward="false" selection-start-line="415" selection-start-column="23" selection-end-line="415" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -97,19 +74,10 @@
       <file leaf-file-name="getStats.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NBA/NBAStats/getStats.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="207" column="28" lean-forward="false" selection-start-line="207" selection-start-column="28" selection-end-line="207" selection-end-column="28" />
+            <state relative-caret-position="2182">
+              <caret line="261" column="31" lean-forward="false" selection-start-line="261" selection-start-column="31" selection-end-line="261" selection-end-column="31" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-                <element signature="e#105#334#0" expanded="false" />
-                <element signature="e#362#838#0" expanded="false" />
-                <element signature="e#867#1079#0" expanded="false" />
-                <element signature="e#1117#2130#0" expanded="false" />
-                <element signature="e#2177#2687#0" expanded="false" />
-                <element signature="e#2718#5667#0" expanded="false" />
-                <element signature="e#5697#6764#0" expanded="false" />
-                <element signature="e#6797#7946#0" expanded="false" />
-                <element signature="e#7981#8615#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -118,8 +86,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NBA/NBAStats/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="49" column="33" lean-forward="true" selection-start-line="49" selection-start-column="33" selection-end-line="49" selection-end-column="33" />
+            <state relative-caret-position="810">
+              <caret line="54" column="43" lean-forward="true" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="43" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -146,9 +114,9 @@
       <find>button</find>
       <find>team</find>
       <find>console.log</find>
-      <find>print</find>
       <find>homeTeam</find>
       <find>regular</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -199,6 +167,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -240,105 +209,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="NBAStats" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Visualizing-NBA-Box-Scores" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Visualizing-NBA-Box-Scores" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NBA" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NBAStats" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NBAStats" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Visualizing-NBA-Box-Scores" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Visualizing-NBA-Box-Scores" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NBA" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NBAStats" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NBAStats" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Visualizing-NBA-Box-Scores" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Visualizing-NBA-Box-Scores" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NBA" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NBAStats" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="migrations" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Visualizing-NBA-Box-Scores" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Visualizing-NBA-Box-Scores" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="NBA" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="NBA" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -712,17 +588,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="848" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16452074" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17310444" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936507" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936507" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936507" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46693122" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4021164" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936507" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936507" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43650794" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -917,13 +793,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NBA/NBAStats/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/NBA/NBA/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-30">
@@ -965,20 +834,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NBA/NBAStats/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="49" column="33" lean-forward="true" selection-start-line="49" selection-start-column="33" selection-end-line="49" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/NBA/NBAStats/templates/NBAStats/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="104" column="26" lean-forward="true" selection-start-line="104" selection-start-column="26" selection-end-line="104" selection-end-column="26" />
+        <state relative-caret-position="1560">
+          <caret line="104" column="26" lean-forward="false" selection-start-line="104" selection-start-column="26" selection-end-line="104" selection-end-column="26" />
           <folding>
             <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#li#1;n#ul#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -992,9 +851,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/NBA/NBAStats/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="54" column="43" lean-forward="true" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NBA/NBAStats/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/NBA/NBAStats/static/NBAStats/styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
+        <state relative-caret-position="325">
           <caret line="31" column="14" lean-forward="false" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
           <folding />
         </state>
@@ -1002,47 +879,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/NBA/NBAStats/static/NBAStats/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="412" column="0" lean-forward="false" selection-start-line="412" selection-start-column="0" selection-end-line="412" selection-end-column="0" />
-          <folding>
-            <element signature="e#448#769#0" expanded="false" />
-            <element signature="e#934#1442#0" expanded="false" />
-            <element signature="e#1497#2513#0" expanded="false" />
-            <element signature="e#2606#2731#0" expanded="false" />
-            <element signature="e#4566#6015#0" expanded="false" />
-            <element signature="e#6044#6139#0" expanded="false" />
-            <element signature="e#6186#6710#0" expanded="false" />
-            <element signature="e#6740#6849#0" expanded="false" />
-            <element signature="e#6896#7421#0" expanded="false" />
-            <element signature="e#7451#7560#0" expanded="false" />
-            <element signature="e#7681#9848#0" expanded="false" />
-            <element signature="e#9881#9988#0" expanded="false" />
-            <element signature="e#10017#10192#0" expanded="false" />
-            <element signature="e#10221#10511#0" expanded="false" />
-            <element signature="e#10555#12633#0" expanded="false" />
-            <element signature="e#15320#15780#0" expanded="false" />
-            <element signature="e#15921#16034#0" expanded="false" />
-            <element signature="e#16062#16675#0" expanded="false" />
-            <element signature="e#16690#17038#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="394">
+          <caret line="415" column="23" lean-forward="false" selection-start-line="415" selection-start-column="23" selection-end-line="415" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/NBA/NBAStats/getStats.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="207" column="28" lean-forward="false" selection-start-line="207" selection-start-column="28" selection-end-line="207" selection-end-column="28" />
+        <state relative-caret-position="2182">
+          <caret line="261" column="31" lean-forward="false" selection-start-line="261" selection-start-column="31" selection-end-line="261" selection-end-column="31" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#105#334#0" expanded="false" />
-            <element signature="e#362#838#0" expanded="false" />
-            <element signature="e#867#1079#0" expanded="false" />
-            <element signature="e#1117#2130#0" expanded="false" />
-            <element signature="e#2177#2687#0" expanded="false" />
-            <element signature="e#2718#5667#0" expanded="false" />
-            <element signature="e#5697#6764#0" expanded="false" />
-            <element signature="e#6797#7946#0" expanded="false" />
-            <element signature="e#7981#8615#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -10,7 +10,7 @@ def getGameID(month, day, year):
     :return: List of Game IDs for the input date
     """
     s = Scoreboard(month, day, year)
-    print (s.game_header())
+    #print (s.game_header())
     game_ids = [item['GAME_ID'] for item in s.game_header()]
     return game_ids
 
@@ -224,10 +224,46 @@ def getTeamAdvanced(gameID):
                       team['DEF_RATING'],
                       team['NET_RATING']])
     return stats
+"""
+{'PACE': 98.17, 'DEF_RATING': 90.7, 'TEAM_ABBREVIATION': 'NOP', 'TEAM_ID': 1610612740, 'START_POSITION': 'F', 'TEAM_CITY': 'New Orleans', 'GAME_ID': '0021600418', 'REB_PCT': 0.041, 'AST_TOV': 0.0, 'AST_PCT': 0.071, 'TM_TOV_PCT': 0.0, 'USG_PCT': 0.025, 'PLAYER_ID': 203524, 'PLAYER_NAME': 'Solomon Hill', 'COMMENT': '', 'OREB_PCT': 0.0, 'MIN': '32:55', 'PIE': 0.041, 'AST_RATIO': 50.0, 'DREB_PCT': 0.081, 'EFG_PCT': 0.5, 'TS_PCT': 0.5, 'NET_RATING': 18.8, 'OFF_RATING': 109.5}
+"""
+
+def getPlayerAdvanced(gameID):
+    boxscore = game.BoxscoreAdvanced(gameID);
+    advancedPlayerStats = boxscore.sql_players_advanced();
+    teamIDs = []
+    awayTeam = []
+    homeTeam = []
+    for player in advancedPlayerStats:
+        if player['MIN'] is not None:
+            if player['TEAM_ID'] not in teamIDs:
+                teamIDs.append(player['TEAM_ID'])
+            if player['TEAM_ID'] == teamIDs[0]:
+                awayTeam.append([player['PLAYER_NAME'],
+                              player['TS_PCT'],
+                              player['EFG_PCT'],
+                              player['OREB_PCT'],
+                              player['DREB_PCT'],
+                              player['REB_PCT'],
+                              player['AST_PCT'],
+                              player['TM_TOV_PCT']])
+            elif player['TEAM_ID'] == teamIDs[1]:
+                homeTeam.append([player['PLAYER_NAME'],
+                              player['TS_PCT'],
+                              player['EFG_PCT'],
+                              player['OREB_PCT'],
+                              player['DREB_PCT'],
+                              player['REB_PCT'],
+                              player['AST_PCT'],
+                              player['TM_TOV_PCT']])
+            else:
+                continue
+
+    return [awayTeam, homeTeam]
 
 def main():
     id = getGameID(12, 20, 2016)
-    print(getTeamAdvanced(id))
+    print(getPlayerAdvanced(id))
 
 if __name__ == '__main__':
     main()
