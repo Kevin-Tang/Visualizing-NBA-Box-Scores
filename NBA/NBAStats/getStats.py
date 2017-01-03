@@ -21,7 +21,7 @@ def getTeams(gameID):
     """
     box = game.BoxscoreSummary(gameID)
     lineScore = box.line_score()
-    print (lineScore)
+    # print (lineScore)
     teamCityNames = [item['TEAM_CITY_NAME'] for item in lineScore]
     teamNicknames = [item['TEAM_NICKNAME'] for item in lineScore]
     homeTeam = teamCityNames[0] + " " + teamNicknames[0]
@@ -79,7 +79,7 @@ def getPointsbyPlayer(month, day, year):
         game_ids = getGameID(month, day, year)
         box = game.Boxscore(game_ids[0])
         playerStats = (box.player_stats())
-        print(playerStats)
+        # print(playerStats)
         playerPoints = [item['PTS'] for item in playerStats if item['MIN'] is not None]
         return playerPoints
 
@@ -103,11 +103,16 @@ def getBoxScore(gameID):
                     awayTeam.append([player['PLAYER_NAME'],
                                      player['MIN'],
                                      player['FGM'],
+                                     player['FGA'],
                                      player['FG_PCT'],
                                      player['FG3M'],
+                                     player['FG3A'],
                                      player['FG3_PCT'],
                                      player['FTM'],
+                                     player['FTA'],
                                      player['FT_PCT'],
+                                     player['DREB'],
+                                     player['OREB'],
                                      player['REB'],
                                      player['AST'],
                                      player['TO'],
@@ -121,11 +126,16 @@ def getBoxScore(gameID):
                     homeTeam.append([player['PLAYER_NAME'],
                                      player['MIN'],
                                      player['FGM'],
+                                     player['FGA'],
                                      player['FG_PCT'],
                                      player['FG3M'],
+                                     player['FG3A'],
                                      player['FG3_PCT'],
                                      player['FTM'],
+                                     player['FTA'],
                                      player['FT_PCT'],
+                                     player['DREB'],
+                                     player['OREB'],
                                      player['REB'],
                                      player['AST'],
                                      player['TO'],
@@ -204,12 +214,6 @@ def getPlaybyPlay(gameID):
 
 def main():
     id = getGameID(12, 20, 2016)
-    #plays = getPlaybyPlay(id[1])
-    #teams = getTeams(id[1])
-    #idToday = getGameIDsToday()
-    #ptsbyQ = getPointsbyQuarter(id[0])
-    #players = getPlayers(id[0])
-    #pointsbyPlayer = getPointsbyPlayer(12, 20, 2016)
     print(getBoxScore(id))
 
 if __name__ == '__main__':

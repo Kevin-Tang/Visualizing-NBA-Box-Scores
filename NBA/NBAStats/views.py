@@ -28,12 +28,6 @@ def populate_game_buttons(request):
         teams = getStats.getTeams(ID)
         teamsList.append(teams)
 
-    # for ID in game_ids:
-    #     game = Game.objects.get_or_create(gameID=ID, gameDate=date)
-
-    # game_set = Game.objects.filter(gameDate=date)
-    # print (game_set)
-
     response_data = {}
     response_data['date'] = date
     response_data['game_ids'] = game_ids
@@ -54,15 +48,13 @@ def get_game_data(request):
     # print ("ID is %s" % ID)
 
     teams = getStats.getTeams(ID)
-
     quarterPoints = getStats.getPointsbyQuarter(ID)
-
     players = getStats.getPlayers(ID)
-
     playbyplay = getStats.getPlaybyPlay(ID)
+    boxscore = getStats.getBoxScore(ID)
 
     response_data = {'gameID': ID, 'quarterPoints': quarterPoints, 'teams': teams,
-                     'players': players, 'playbyplay': playbyplay}
+                     'players': players, 'playbyplay': playbyplay, 'boxscore': boxscore}
 
     return HttpResponse(
         json.dumps(response_data),

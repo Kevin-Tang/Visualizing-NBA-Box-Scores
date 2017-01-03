@@ -11,7 +11,6 @@ $(document).ready(function(){
 	var $team2PieChart = $('#team2PieChart');
 	var $BarGraphContainer = $("#BarGraphContainer");
 
-
 	// Initialize datepicker
 	$calendar.datepicker({
 		defaultDate: "-1d",
@@ -38,8 +37,6 @@ $(document).ready(function(){
 		// console.log("month is " + month + "\nday is " + day + "\nyear is " + year);
 		populateGameButtons(date, month, day, year);		
 	}
-
-	
 
 	function populateGameButtons(date, month, day, year){
 		console.log("you called populateGameButtons()");
@@ -118,7 +115,9 @@ $(document).ready(function(){
                 createLineChart(plays[2], plays[0], plays[1], teams);
 
                 $('#aboutProject').show();
-				// addBoxscore(json.boxscore[0])
+                $('#boxscoreTitle').show();
+				addBoxscore(json.boxscore[0], json.boxscore[1]);
+
 			},
 
 			error : function(xhr,errmsg,err) {
@@ -326,59 +325,86 @@ $(document).ready(function(){
 		}
 		return color;
 	}
-	/*
-	function addBoxscore(homeTeam) {
-		var boxscoreDiv = document.getElementById("regBoxscore");
-		var boxTable = document.createElement('table');
-		var boxBody = document.createElement('tbody');
 
-		boxTable.border = '1';
-		boxTable.appendChild(boxBody);
+	function removeBoxscore() {
+        homeBoxscore = document.getElementById("homeBoxscore");
+        if (homeBoxscore) homeBoxscore.parentNode.removeChild(homeBoxscore);
+
+        awayBoxscore = document.getElementById("awayBoxscore");
+        if (awayBoxscore) awayBoxscore.parentNode.removeChild(awayBoxscore);
+    }
+	function addBoxscore(homeTeam, awayTeam) {
+        removeBoxscore();
+		var boxscoreDiv = document.getElementById("regBoxscore");
+
+		var homeTable = document.createElement('TABLE');
+		homeTable.className = "table table-condensed ";
+		homeTable.id = "homeBoxscore";
 
 		var heading = [];
 		heading[0] = "Player_Name";
 		heading[1] = "Mins";
 		heading[2] = "FGM";
-		heading[3] = "FG%";
-		heading[4] = "3PM";
-		heading[5] = "3P%";
-		heading[6] = "FTM";
-		heading[7] = "FT%";
-		heading[8] = "REB";
-		heading[9] = "AST";
-		heading[10] = "TOV";
-		heading[11] = "STL";
-		heading[12] = "BLK";
-		heading[13] = "PF";
-		heading[14] = "PTS";
-		heading[15] = "+/-";
+		heading[3] = "FGA";
+		heading[4] = "FG%";
+		heading[5] = "3PM";
+		heading[6] = "3PA";
+		heading[7] = "3P%";
+		heading[8] = "FTM";
+		heading[9] = "FTA";
+		heading[10] = "FT%";
+		heading[11] = "DREB";
+		heading[12] = "OREB";
+		heading[13] = "REB";
+		heading[14] = "AST";
+		heading[15] = "TOV";
+		heading[16] = "STL";
+		heading[17] = "BLK";
+		heading[18] = "PF";
+		heading[19] = "PTS";
+		heading[20] = "+/-";
 
-		var stock = [];
-		for (i = 0; i < homeTeam.length; i++){
-			stock[i] = homeTeam[i];
-		}
+		// Add the header row
+		var hRow = homeTable.insertRow(-1);
+		for (var i = 0; i < heading.length; i++) {
+		    var hHeaderCell = document.createElement("TH");
+		    hHeaderCell.innerHTML = heading[i];
+		    hRow.appendChild(hHeaderCell)
+        }
 
-		var tr = document.createElement('tr');
-		boxTable.appendChild(tr);
-		for (i = 0; i < heading.length; i++) {
-			var th = document.createElement('th');
-			th.appendChild(document.createTextNode(heading[i]));
-			tr.appendChild(th);
-		}
+        // Add the data rows.
+        for (var i = 0; i < homeTeam.length; i++) {
+		    row = homeTable.insertRow(-1);
+		    for (var j = 0; j < heading.length; j++) {
+		        var hCell = row.insertCell(-1);
+		        hCell.innerHTML = homeTeam[i][j];
+            }
+        }
+        boxscoreDiv.appendChild(homeTable);
+		boxscoreDiv.appendChild(document.createTextNode( '\u00A0' ));
 
-    	//TABLE ROWS
-    	for (i = 0; i < stock.length; i++) {
-			var tr = document.createElement('tr');
-        	for (j = 0; j < stock[i].length; j++) {
-            	var td = document.createElement('td');
-            	td.appendChild(document.createTextNode(stock[i][j]));
-            	tr.appendChild(td)
-        	}
-        	boxBody.appendChild(tr);
-    	}
-    	boxscoreDiv.appendChild(boxTable);
+        var awayTable = document.createElement('TABLE');
+        awayTable.className = "table table-condensed";
+		awayTable.id = "awayBoxscore";
+
+		// Add the header row
+		var row = awayTable.insertRow(-1);
+		for (var i = 0; i < heading.length; i++) {
+		    var headerCell = document.createElement("TH");
+		    headerCell.innerHTML = heading[i];
+		    row.appendChild(headerCell)
+        }
+
+        // Add the data rows.
+        for (var i = 0; i < awayTeam.length; i++) {
+		    row = awayTable.insertRow(-1);
+		    for (var j = 0; j < heading.length; j++) {
+		        var cell = row.insertCell(-1);
+		        cell.innerHTML = awayTeam[i][j];
+            }
+        }
+        boxscoreDiv.appendChild(awayTable);
 	};
-	*/
 
     // Code below is from Django documentation
     // It enables AJAX to pass the csrf_token
