@@ -13,7 +13,6 @@ def getGameID(month, day, year):
     game_ids = [item['GAME_ID'] for item in s.game_header()]
     return game_ids
 
-
 def getTeams(gameID):
     """
     :param gameID:
@@ -29,7 +28,6 @@ def getTeams(gameID):
     teams = [homeTeam, awayTeam]
     return teams
 
-
 def getGameIDsToday():
     """
     :return: List of Game IDs today
@@ -38,7 +36,6 @@ def getGameIDsToday():
     s = Scoreboard(TODAY.month, TODAY.day, TODAY.year)
     game_ids = [item['GAME_ID'] for item in s.game_header()]
     return game_ids
-
 
 def getPointsbyQuarter(gameID):
     """
@@ -66,7 +63,6 @@ def getPointsbyQuarter(gameID):
     except Exception as e:
         print(str(e))
         print("POINTS was not found. Data is probably unavailble.")
-
 
 def getPointsbyPlayer(month, day, year):
     """
@@ -152,7 +148,6 @@ def getBoxScore(gameID):
         print(str(e))
         print("Boxscore unavailible")
 
-
 def getPlayers(gameID):
     """
     :param gameID:
@@ -183,7 +178,6 @@ def getPlayers(gameID):
         print(str(e))
         print("PLAYERS were not found.")
 
-
 def getPlaybyPlay(gameID):
     """
     :param gameID:
@@ -211,10 +205,28 @@ def getPlaybyPlay(gameID):
         print(str(e))
         print("PLAYBYPLAY is unavailible")
 
+def getTeamAdvanced(gameID):
+    boxscore = game.BoxscoreAdvanced(gameID)
+    advTeamStats = boxscore.sql_team_advanced()
+    stats = []
+    for team in advTeamStats:
+        stats.append([team['TS_PCT'],
+                      team['EFG_PCT'],
+                      team['OREB_PCT'],
+                      team['DREB_PCT'],
+                      team['REB_PCT'],
+                      team['AST_PCT'],
+                      team['AST_RATIO'],
+                      team['AST_TOV'],
+                      team['TM_TOV_PCT'],
+                      team['OFF_RATING'],
+                      team['DEF_RATING'],
+                      team['NET_RATING']])
+    return stats
 
 def main():
     id = getGameID(12, 20, 2016)
-    print(getBoxScore(id))
+    print(getTeamAdvanced(id))
 
 if __name__ == '__main__':
     main()

@@ -29,7 +29,9 @@
 }
 
 input[type=text] {
-    width: 50%;
+    width: 25%;
+    border: none;
+    border-bottom : 2px solid gold;
 }
 
 #header li a {

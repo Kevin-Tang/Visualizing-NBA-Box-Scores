@@ -114,6 +114,9 @@ $(document).ready(function(){
                 $('#playbyplay').text("Score Timeline");
                 createLineChart(plays[2], plays[0], plays[1], teams);
 
+                $('#advTeamName').text("Team Advanced Stats");
+                createAdvancedGraph(json.teamAdvanced[0], json.teamAdvanced[1], teams);
+
                 $('#aboutProject').show();
                 $('#boxscoreTitle').show();
 				addBoxscore(json.boxscore[0], json.boxscore[1]);
@@ -212,7 +215,7 @@ $(document).ready(function(){
 		};
 		// For a Pie chart
 		var myPieChart = new Chart(pieCtx1,{
-		 type: 'pie',
+		 type: 'doughnut',
 		 data: data1
 		});
 	}
@@ -243,7 +246,7 @@ $(document).ready(function(){
 
 		// For a Pie chart
 		var myPieChart = new Chart(pieCtx2,{
-		 type: 'pie',
+		 type: 'doughnut',
 		 data: data2
 		});
 	}
@@ -333,6 +336,7 @@ $(document).ready(function(){
         awayBoxscore = document.getElementById("awayBoxscore");
         if (awayBoxscore) awayBoxscore.parentNode.removeChild(awayBoxscore);
     }
+
 	function addBoxscore(homeTeam, awayTeam) {
         removeBoxscore();
 		var boxscoreDiv = document.getElementById("regBoxscore");
@@ -406,6 +410,93 @@ $(document).ready(function(){
         boxscoreDiv.appendChild(awayTable);
 	};
 
+	function createAdvancedGraph(home, away, teams) {
+	    // deleteAdv();
+		var barCtx = $("#advTeamStats");
+		var barData = {
+		labels: ["TS%", "eFG%", "OREB%", "DREB%", "REB%", "AST%", "AST_RATIO", "AST-TOV", "TO%", "OFF-RATING", "DEF-RATING", "NET-RATING"],
+		datasets: [
+
+			   {
+				   label: teams[0],
+				   backgroundColor: [
+                       '#b8a939',
+                       '#b8a939',
+                       '#b8a939',
+                       '#b8a939',
+                       '#b8a939',
+                       '#b8a939',
+                       '#b8a939',
+                       '#b8a939',
+                       '#b8a939',
+                       '#b8a939',
+                       '#b8a939',
+                       '#b8a939',
+                   ],
+				   borderColor: [
+                       '#b34c31',
+                       '#b34c31',
+                       '#b34c31',
+                       '#b34c31',
+                       '#b34c31',
+                       '#b34c31',
+                       '#b34c31',
+                       '#b34c31',
+                       '#b34c31',
+                       '#b34c31',
+                       '#b34c31',
+                       '#b34c31'
+
+                   ],
+				   borderWidth: 1,
+				   data: home
+			   },
+			   {
+				   label: teams[1],
+				   backgroundColor: [
+                       '#243d6c',
+                       '#243d6c',
+                       '#243d6c',
+                       '#243d6c',
+                       '#243d6c',
+                       '#243d6c',
+                       '#243d6c',
+                       '#243d6c',
+                       '#243d6c',
+                       '#243d6c',
+                       '#243d6c',
+                       '#243d6c'
+				   ],
+				   borderColor: [
+                       '#18b389',
+                       '#18b389',
+                       '#18b389',
+                       '#18b389',
+                       '#18b389',
+                       '#18b389',
+                       '#18b389',
+                       '#18b389',
+                       '#18b389',
+                       '#18b389',
+                       '#18b389',
+                       '#18b389',
+                   ],
+				   data: away
+			   }
+		   ]
+		};
+		var advTeam = new Chart(barCtx, {
+			type: 'horizontalBar',
+			data: barData
+		});
+		console.log("Advanced Stats graph successfully created");
+    }
+
+    function deleteAdv() {
+	    $("#advTeamStats").remove();
+	    $advContainer.append("<canvas id='advTeamStats'></canvas>>");
+    }
+
     // Code below is from Django documentation
     // It enables AJAX to pass the csrf_token
 
@@ -430,11 +521,11 @@ $(document).ready(function(){
 	/*
 	The functions below will create a header with csrftoken
 	*/
-
 	function csrfSafeMethod(method) {
 		// these HTTP methods do not require CSRF protection
 		return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 	}
+
 	function sameOrigin(url) {
 		// test that a given url is a same-origin URL
 		// url could be relative or scheme relative or absolute
