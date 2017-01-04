@@ -1,0 +1,6 @@
+dj-database-url==0.4.1
+Django==1.10.4
+gunicorn==19.6.0
+nba-py==0.1.1a2
+requests==2.12.4
+whitenoise==3.2.2

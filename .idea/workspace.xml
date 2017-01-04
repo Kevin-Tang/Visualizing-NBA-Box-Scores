@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1211728d-71c4-43d4-951a-e9a79895b9c1" name="Default" comment="fixed BoxScore visual">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NBA/NBAStats/getStats.py" afterPath="$PROJECT_DIR$/NBA/NBAStats/getStats.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NBA/NBAStats/static/NBAStats/main.js" afterPath="$PROJECT_DIR$/NBA/NBAStats/static/NBAStats/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NBA/NBAStats/static/NBAStats/styles.css" afterPath="$PROJECT_DIR$/NBA/NBAStats/static/NBAStats/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NBA/NBAStats/templates/NBAStats/index.html" afterPath="$PROJECT_DIR$/NBA/NBAStats/templates/NBAStats/index.html" />
-    </list>
+    <list default="true" id="1211728d-71c4-43d4-951a-e9a79895b9c1" name="Default" comment="fixed BoxScore visual" />
     <ignored path="Visualizing-NBA-Box-Scores.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
