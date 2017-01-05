@@ -165,7 +165,6 @@ $(document).ready(function(){
 
 	// creates the bar graph for quarter scores
 	function createBarGraph(homeTeamScores, awayTeamScores, teams) {
-<<<<<<< HEAD
 		var barCtx = $BarGraph;
 		var barData = {
 			labels: ["Start", "Q1", "Q2", "Q3", "Q4", "Total"],
