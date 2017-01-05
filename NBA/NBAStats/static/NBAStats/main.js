@@ -146,48 +146,20 @@ $(document).ready(function(){
 		console.log("you called createBarGraph()"); // sanity check
 		var barCtx = $("#BarGraph");
 		var barData = {
-		labels: ["Start", "Q1", "Q2", "Q3", "Q4", "Total"],
-		datasets: [
+			labels: ["Start", "Q1", "Q2", "Q3", "Q4", "Total"],
+			datasets: [
 
 			   {
 				   label: teams[0],
-				   backgroundColor: [
-				       '#49b880',
-                       '#49b880',
-                       '#49b880',
-                       '#49b880',
-                       '#49b880',
-                       '#49b880'
-                   ],
-				   borderColor: [
-				       '#5BCE20',
-                       '#5BCE20',
-                       '#5BCE20',
-                       '#5BCE20',
-                       '#5BCE20',
-                       '#5BCE20'
-                   ],
+				   backgroundColor: '#49b880',
+				   borderColor: '#5BCE20',
 				   borderWidth: 1,
 				   data: homeTeamScores
 			   },
 			   {
 				   label: teams[1],
-				   backgroundColor: [
-                       '#E84A5f',
-                       '#E84A5f',
-                       '#E84A5f',
-                       '#E84A5f',
-                       '#E84A5f',
-                       '#E84A5f'
-				   ],
-				   borderColor: [
-				       '#243D6C',
-                       '#243D6C',
-                       '#243D6C',
-                       '#243D6C',
-                       '#243D6C',
-                       '#243D6C'
-                   ],
+				   backgroundColor: '#E84A5f',
+				   borderColor: '#243D6C',
 				   data: awayTeamScores
 			   }
 		   ]
