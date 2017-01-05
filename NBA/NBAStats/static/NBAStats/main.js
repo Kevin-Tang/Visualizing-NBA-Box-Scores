@@ -34,9 +34,6 @@ $(document).ready(function(){
 	var advGraph2;
 	var advGraph3;
 
-	// Declare graphs as global variables
-	var barGraph;
-
 	// Initialize datepicker
 	$calendar.datepicker({
 		defaultDate: "-1d",
@@ -65,7 +62,7 @@ $(document).ready(function(){
 	}
 
 	function populateGameButtons(date, month, day, year){
-		console.log("you called populateGameButtons()");
+		// console.log("You called populateGameButtons()"); // sanity check
 		$.ajax({
 			url : "populate_game_buttons/", // the endpoint
 			type : "POST", // http method
@@ -76,14 +73,14 @@ $(document).ready(function(){
 				year : year
 			},
 			success : function(json) {
-				console.log(json); // log the returned json to the console
+				// console.log(json); // log the returned json to the console
 				$gameButtonsList.empty(); // delete games from previously selected date
 				$.each(json.game_ids, function(i, val){ // add a button for each game
 					// console.log(i + " " + val);  // print game IDs
 					// $gameButtonsList.append("<li><input type='button' value='"+json.teamsList[i][0]+" vs. "+json.teamsList[i][1]+"' class='game' id='"+val+"'></li>");
 					$gameButtonsList.append("<li><button id='"+val+"' class='game'>"+json.teamsList[i][0]+"<br>vs.<br>"+json.teamsList[i][1]+"</button></li>");
 				});
-				console.log("SUCCESS!"); // sanity check
+				// console.log("SUCCESS!"); // sanity check
 			},
 
 			error : function(xhr,errmsg,err) {
@@ -101,7 +98,7 @@ $(document).ready(function(){
 
 	// Wrapper function for loading and visualizing the game stats
 	function showStats(gameID) {
-		console.log("You called showStats() with game: " + gameID); // sanity check
+		// console.log("You called showStats() with game: " + gameID); // sanity check
 		$.ajax({
 			url : "get_game_data/", // the endpoint
 			type : "POST", // http method
@@ -109,7 +106,7 @@ $(document).ready(function(){
 				gameID : gameID
 			},
 			success : function(json) {
-				console.log(json);
+				// console.log(json);
 
 				// Create Bar Graph
 				teams = json.teams;
