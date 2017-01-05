@@ -14,6 +14,9 @@ $(document).ready(function(){
 	var $advContainer2 = $("#advContainer2");
 	var $advContainer3 = $("#advContainer3");
 
+	// Declare graphs as global variables
+	var barGraph;
+
 	// Initialize datepicker
 	$calendar.datepicker({
 		defaultDate: "-1d",
@@ -104,10 +107,10 @@ $(document).ready(function(){
 
 				// Create Pie Graph
 				players = json.players;
-				console.log(players[0]);
-				console.log(players[1]);
-				console.log(players[2]);
-				console.log(players[3]);
+				//console.log(players[0]);
+				//console.log(players[1]);
+				//console.log(players[2]);
+				//console.log(players[3]);
 
 				createPieGraph1(players[0], players[1]);
 				createPieGraph2(players[2], players[3]);
@@ -142,66 +145,37 @@ $(document).ready(function(){
 
 	// creates the bar chart for quarter scores
 	function createBarGraph(homeTeamScores, awayTeamScores, teams) {
-		deleteBarGraph();
-		console.log("you called createBarGraph()"); // sanity check
+		console.log("You called createBarGraph()"); // sanity check
 		var barCtx = $("#BarGraph");
 		var barData = {
-		labels: ["Start", "Q1", "Q2", "Q3", "Q4", "Total"],
-		datasets: [
-
+			labels: ["Start", "Q1", "Q2", "Q3", "Q4", "Total"],
+			datasets: [
 			   {
 				   label: teams[0],
-				   backgroundColor: [
-				       '#49b880',
-                       '#49b880',
-                       '#49b880',
-                       '#49b880',
-                       '#49b880',
-                       '#49b880'
-                   ],
-				   borderColor: [
-				       '#5BCE20',
-                       '#5BCE20',
-                       '#5BCE20',
-                       '#5BCE20',
-                       '#5BCE20',
-                       '#5BCE20'
-                   ],
+				   backgroundColor: '#49b880',
+				   borderColor: '#5BCE20',
 				   borderWidth: 1,
 				   data: homeTeamScores
 			   },
 			   {
 				   label: teams[1],
-				   backgroundColor: [
-                       '#E84A5f',
-                       '#E84A5f',
-                       '#E84A5f',
-                       '#E84A5f',
-                       '#E84A5f',
-                       '#E84A5f'
-				   ],
-				   borderColor: [
-				       '#243D6C',
-                       '#243D6C',
-                       '#243D6C',
-                       '#243D6C',
-                       '#243D6C',
-                       '#243D6C'
-                   ],
+				   backgroundColor: '#E84A5f',
+				   borderColor: '#243D6C',
 				   data: awayTeamScores
 			   }
 		   ]
 		};
-		var BarGraph = new Chart(barCtx, {
+		if (barGraph != null) {
+			barGraph.destroy(); // delete the existing chart
+			// console.log("barGraph != null"); // test
+		}
+		// if (barGraph == null) { // test
+		//		console.log("barGraph == null");
+		// }
+		barGraph = new Chart(barCtx, {
 			type: 'bar',
 			data: barData
 		});
-		console.log("Bar graph successfully created");
-	}
-
-	function deleteBarGraph() {
-		$("#BarGraph").remove();
-		$BarGraphContainer.append("<canvas id='BarGraph'></canvas>");
 	}
 
 	function createPieGraph1(players1, scores1) {
