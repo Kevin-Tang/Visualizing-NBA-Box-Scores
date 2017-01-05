@@ -14,6 +14,9 @@ $(document).ready(function(){
 	var $advContainer2 = $("#advContainer2");
 	var $advContainer3 = $("#advContainer3");
 
+	// Declare graphs as global variables
+	var BarGraph;
+
 	// Initialize datepicker
 	$calendar.datepicker({
 		defaultDate: "-1d",
@@ -77,7 +80,7 @@ $(document).ready(function(){
 		showStats(gameID);
 	});
 
-	// wrapper function for loading and visualizing the game stats
+	// Wrapper function for loading and visualizing the game stats
 	function showStats(gameID) {
 		console.log("You called showStats() with game: " + gameID); // sanity check
 		$.ajax({
@@ -104,10 +107,10 @@ $(document).ready(function(){
 
 				// Create Pie Graph
 				players = json.players;
-				console.log(players[0]);
-				console.log(players[1]);
-				console.log(players[2]);
-				console.log(players[3]);
+				// console.log(players[0]);
+				// console.log(players[1]);
+				// console.log(players[2]);
+				// console.log(players[3]);
 
 				createPieGraph1(players[0], players[1]);
 				createPieGraph2(players[2], players[3]);
@@ -142,13 +145,11 @@ $(document).ready(function(){
 
 	// creates the bar chart for quarter scores
 	function createBarGraph(homeTeamScores, awayTeamScores, teams) {
-		deleteBarGraph();
 		console.log("you called createBarGraph()"); // sanity check
 		var barCtx = $("#BarGraph");
 		var barData = {
 			labels: ["Start", "Q1", "Q2", "Q3", "Q4", "Total"],
 			datasets: [
-
 			   {
 				   label: teams[0],
 				   backgroundColor: '#49b880',
@@ -164,16 +165,18 @@ $(document).ready(function(){
 			   }
 		   ]
 		};
-		var BarGraph = new Chart(barCtx, {
+		if (BarGraph != null) {
+			BarGraph.destroy(); // delete the existing chart
+			// console.log("Bargraph != null"); // test
+		}
+		// if (BarGraph == null) { // test
+		// 	console.log("Bargraph == null");
+		// }
+		BarGraph = new Chart(barCtx, {
 			type: 'bar',
 			data: barData
 		});
-		console.log("Bar graph successfully created");
-	}
-
-	function deleteBarGraph() {
-		$("#BarGraph").remove();
-		$BarGraphContainer.append("<canvas id='BarGraph'></canvas>");
+		// console.log("Bar graph successfully created");
 	}
 
 	function createPieGraph1(players1, scores1) {
