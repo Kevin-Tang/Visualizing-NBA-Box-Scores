@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	// Caching DOM selectors
+	// Cache frequently used DOM selectors
 	var $calendar = $("#datepicker");
 	var $gameButtonsList = $("#game_buttons");
 	var $teamNames = $('#teamNames');
@@ -9,13 +9,30 @@ $(document).ready(function(){
 	var $team1PieChart = $('#team1PieChart');
 	var $team2 = $('#team2');
 	var $team2PieChart = $('#team2PieChart');
-	var $BarGraphContainer = $("#BarGraphContainer");
-	var $advContainer1 = $("#advContainer1");
-	var $advContainer2 = $("#advContainer2");
-	var $advContainer3 = $("#advContainer3");
+	var $playbyplay = $('#playbyplay')
+	var $advTeamName1 = $('#advTeamName1')
+	var $advTeamName2 = $('#advTeamName2')
+	var $advTeamName3 = $('#advTeamName3')
+	var $aboutProject = $('#aboutProject')
+	var $boxscoreTitle = $('#boxscoreTitle')
+
+	// Cache graph canvases
+	var $BarGraph = $("#BarGraph");
+	var $myPieChart1 = $('#myPieChart1');
+	var $myPieChart2 = $('#myPieChart2');
+	var $myLineChart = $('#myLineChart');
+	var $advTeamStats1 = $("#advTeamStats1");
+	var $advTeamStats2 = $("#advTeamStats2");
+	var $advTeamStats3 = $("#advTeamStats3");
 
 	// Declare graphs as global variables
 	var BarGraph;
+	var myPieChart1;
+	var myPieChart2;
+	var myLineChart;
+	var advGraph1;
+	var advGraph2;
+	var advGraph3;
 
 	// Initialize datepicker
 	$calendar.datepicker({
@@ -76,7 +93,6 @@ $(document).ready(function(){
 	// event handling for click on a game button
 	$(document).on("click", ".game", function() {
 		var gameID = $(this).attr('id');
-		console.log("You clicked on game: " + gameID); // sanity check
 		showStats(gameID);
 	});
 
@@ -95,7 +111,7 @@ $(document).ready(function(){
 				// Create Bar Graph
 				teams = json.teams;
 				$teamNames.text(teams[0] + " vs. " + teams[1]);
-                $bGraphName.text("Team Points by Quarter");
+				$bGraphName.text("Team Points by Quarter");
 				$team1.text("Home Team: " + teams[0]);
 				$team1PieChart.text("Score Contribution");
 				$team2.text("Away Team: " + teams[1]);
@@ -116,21 +132,21 @@ $(document).ready(function(){
 				createPieGraph2(players[2], players[3]);
 
 				// Create Line Chart
-                plays = json.playbyplay;
-                $('#playbyplay').text("Score Timeline");
-                createLineChart(plays[2], plays[0], plays[1], teams);
+				plays = json.playbyplay;
+				$playbyplay.text("Score Timeline");
+				createLineChart(plays[2], plays[0], plays[1], teams);
 
-                // Create Team Advanced Charts
-                $('#advTeamName1').text("Team Advanced Percentage Statistics");
-                $('#advTeamName2').text("Team Advanced Assist-Turnover Statistics");
-                $('#advTeamName3').text("Team Advanced Rating");
-                createAdvancedGraph1(json.teamAdvanced[0], json.teamAdvanced[3], teams);
-                createAdvancedGraph2(json.teamAdvanced[1], json.teamAdvanced[4], teams);
-                createAdvancedGraph3(json.teamAdvanced[2], json.teamAdvanced[5], teams);
+				// Create Team Advanced Charts
+				$advTeamName1.text("Team Advanced Percentage Statistics");
+				$advTeamName2.text("Team Advanced Assist-Turnover Statistics");
+				$advTeamName3.text("Team Advanced Rating");
+				createAdvancedGraph1(json.teamAdvanced[0], json.teamAdvanced[3], teams);
+				createAdvancedGraph2(json.teamAdvanced[1], json.teamAdvanced[4], teams);
+				createAdvancedGraph3(json.teamAdvanced[2], json.teamAdvanced[5], teams);
 
-                // Create Regular Boxscore
-                $('#aboutProject').show();
-                $('#boxscoreTitle').show();
+				// Create Regular Boxscore
+				$aboutProject.show();
+				$boxscoreTitle.show();
 				addBoxscore(json.boxscore[0], json.boxscore[1]);
 
 			},
@@ -143,167 +159,149 @@ $(document).ready(function(){
 
 	}
 
-	// creates the bar chart for quarter scores
+	// creates the bar graph for quarter scores
 	function createBarGraph(homeTeamScores, awayTeamScores, teams) {
-		console.log("you called createBarGraph()"); // sanity check
-		var barCtx = $("#BarGraph");
+		var barCtx = $BarGraph;
 		var barData = {
 			labels: ["Start", "Q1", "Q2", "Q3", "Q4", "Total"],
 			datasets: [
-			   {
-				   label: teams[0],
-				   backgroundColor: '#49b880',
-				   borderColor: '#5BCE20',
-				   borderWidth: 1,
-				   data: homeTeamScores
+			   	{
+					label: teams[0],
+					backgroundColor: '#49b880',
+					borderColor: '#5BCE20',
+					borderWidth: 1,
+					data: homeTeamScores
 			   },
 			   {
-				   label: teams[1],
-				   backgroundColor: '#E84A5f',
-				   borderColor: '#243D6C',
-				   data: awayTeamScores
+					label: teams[1],
+					backgroundColor: '#E84A5f',
+					borderColor: '#243D6C',
+					data: awayTeamScores
 			   }
 		   ]
 		};
 		if (BarGraph != null) {
 			BarGraph.destroy(); // delete the existing chart
-			// console.log("Bargraph != null"); // test
 		}
-		// if (BarGraph == null) { // test
-		// 	console.log("Bargraph == null");
-		// }
 		BarGraph = new Chart(barCtx, {
 			type: 'bar',
 			data: barData
 		});
-		// console.log("Bar graph successfully created");
 	}
 
+	// creates a pie chart for the home team
 	function createPieGraph1(players1, scores1) {
-		console.log("you called createPieGraph1()");
-		deletePieGraph1();
 		var i; // for loop index
-		var colors1 = []; // empty loop for colors
+		var colors1 = []; // initiate loop for colors
 		for (i = 0; i < scores1.length; i++) { // generate random colors for pie chart
 			colors1.push(getRandomColor());
 		}
 
-		var pieCtx1 = $('#myPieChart1');
+		var pieCtx1 = $myPieChart1;
 		var data1 = {
-		labels: players1,
-		datasets: [
-		   {
-			   data: scores1,
-			   backgroundColor: colors1
-		   }]
+			labels: players1,
+			datasets: [
+			   {
+				data: scores1,
+				backgroundColor: colors1
+			   }
+			]
 		};
-		// For a Pie chart
-		var myPieChart = new Chart(pieCtx1,{
+		if (myPieChart1 != null) {  // clear existing pie chart
+			myPieChart1.destroy();
+		}
+		myPieChart1 = new Chart(pieCtx1,{
 		 type: 'doughnut',
 		 data: data1
 		});
 	}
 
-	function deletePieGraph1() {
-		$("#myPieChart1").remove();
-		$("#myPieChart1Container").append("<canvas id='myPieChart1'></canvas>");
-	}
-
+	// creates a pie chart for the away team
 	function createPieGraph2(players2, scores2) {
-		console.log("you called createPieGraph2()");
-		deletePieGraph2();
 		var i; // for loop index
 		var colors2 = []; // empty loop for colors
 		for (i = 0; i < scores2.length; i++) { // generate random colors for pie chart
 			colors2.push(getRandomColor());
 		}
 
-		var pieCtx2 = $('#myPieChart2');
+		var pieCtx2 = $myPieChart2;
 		var data2 = {
-		labels: players2,
-		datasets: [
-		   {
-			   data: scores2,
-			   backgroundColor: colors2
-		   }]
+			labels: players2,
+			datasets: [
+			   {
+				   data: scores2,
+				   backgroundColor: colors2
+			   }]
 		};
-
-		// For a Pie chart
-		var myPieChart = new Chart(pieCtx2,{
+		if (myPieChart2 != null) {  // clear existing pie charts
+			myPieChart2.destroy();
+		}
+		myPieChart2 = new Chart(pieCtx2,{
 		 type: 'doughnut',
 		 data: data2
 		});
 	}
 
-	function deletePieGraph2() {
-		$("#myPieChart2").remove();
-		$("#myPieChart2Container").append("<canvas id='myPieChart2'></canvas>");
+	// creates the line chart for plays of the game
+	function createLineChart(period_Data, homeTeam, awayTeam, teams) {
+		var lineCtx = $myLineChart;
+		var lineData = {
+			labels: period_Data,
+			datasets: [
+				{
+					label: teams[0],
+					fill: false,
+					lineTension: 0.1,
+					backgroundColor: "#ff000a",
+					borderColor: "#999999",
+					borderCapStyle: 'round',
+					borderWidth: 5,
+					borderJoinStyle: 'bevel',
+					pointBorderColor: "#ff000a",
+					pointBackgroundColor: "#999999",
+					pointBorderWidth: 2,
+					pointHoverRadius: 7,
+					pointHoverBackgroundColor: "#ff000a",
+					pointHoverBorderColor: "rgba(220,220,220,1)",
+					pointHoverBorderWidth: 2,
+					pointRadius: 1,
+					pointHitRadius: 10,
+					data: homeTeam,
+					spanGaps: false
+				},
+				{
+					label: teams[1],
+					fill: false,
+					lineTension: 0.1,
+					backgroundColor: "#0033CC",
+					borderColor: "#2bcc1a",
+					borderCapStyle: 'round',
+					borderWidth: 5,
+					borderJoinStyle: 'bevel',
+					pointBorderColor: "#0033CC",
+					pointBackgroundColor: "#2bcc1a",
+					pointBorderWidth: 2,
+					pointHoverRadius: 7,
+					pointHoverBackgroundColor: "#0033CC",
+					pointHoverBorderColor: "rgba(220,220,220,1)",
+					pointHoverBorderWidth: 2,
+					pointRadius: 1,
+					pointHitRadius: 10,
+					data: awayTeam,
+					spanGaps: false
+				}
+			]
+		};
+		if (myLineChart != null) {  // delete existing line chart
+			myLineChart.destroy();
+		}
+		myLineChart = new Chart(lineCtx, {
+			 type: 'line',
+			 data: lineData
+		 });
 	}
 
-		// creates the line chart for plays of the game
-    function createLineChart(period_Data, homeTeam, awayTeam, teams) {
-	    deleteLineChart();
-	    console.log("You called createLineChart()"); // sanity check
-        var lineCtx = document.getElementById('myLineChart');
-        var lineData = {
-            labels: period_Data,
-            datasets: [
-                {
-                    label: teams[0],
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "#ff000a",
-                    borderColor: "#999999",
-                    borderCapStyle: 'round',
-                    borderWidth: 5,
-                    borderJoinStyle: 'bevel',
-                    pointBorderColor: "#ff000a",
-                    pointBackgroundColor: "#999999",
-                    pointBorderWidth: 2,
-                    pointHoverRadius: 7,
-                    pointHoverBackgroundColor: "#ff000a",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,
-                    data: homeTeam,
-                    spanGaps: false
-                },
-                {
-                    label: teams[1],
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "#0033CC",
-                    borderColor: "#2bcc1a",
-                    borderCapStyle: 'round',
-                    borderWidth: 5,
-                    borderJoinStyle: 'bevel',
-                    pointBorderColor: "#0033CC",
-                    pointBackgroundColor: "#2bcc1a",
-                    pointBorderWidth: 2,
-                    pointHoverRadius: 7,
-                    pointHoverBackgroundColor: "#0033CC",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 1,
-                    pointHitRadius: 10,
-                    data: awayTeam,
-                    spanGaps: false
-                }
-        ]
-         };
-         var myLineChart = new Chart(lineCtx, {
-             type: 'line',
-             data: lineData
-         });
-         console.log("Line chart successfully created");
-    }
-
-    function deleteLineChart() {
-		$("#myLineChart").remove();
-		$("#LineChartContainer").append("<canvas id='myLineChart'></canvas>");
-	}
-
+	// generate a random color in the format '#000000'
 	function getRandomColor() {
 		var letters = '0123456789ABCDEF'.split('');
 		var color = '#';
@@ -314,15 +312,15 @@ $(document).ready(function(){
 	}
 
 	function removeBoxscore() {
-        homeBoxscore = document.getElementById("homeBoxscore");
-        if (homeBoxscore) homeBoxscore.parentNode.removeChild(homeBoxscore);
+		homeBoxscore = document.getElementById("homeBoxscore");
+		if (homeBoxscore) homeBoxscore.parentNode.removeChild(homeBoxscore);
 
-        awayBoxscore = document.getElementById("awayBoxscore");
-        if (awayBoxscore) awayBoxscore.parentNode.removeChild(awayBoxscore);
-    }
+		awayBoxscore = document.getElementById("awayBoxscore");
+		if (awayBoxscore) awayBoxscore.parentNode.removeChild(awayBoxscore);
+	}
 
 	function addBoxscore(homeTeam, awayTeam) {
-        removeBoxscore();
+		removeBoxscore();
 		var boxscoreDiv = document.getElementById("regBoxscore");
 
 		var homeTable = document.createElement('TABLE');
@@ -355,211 +353,137 @@ $(document).ready(function(){
 		// Add the header row
 		var hRow = homeTable.insertRow(-1);
 		for (var i = 0; i < heading.length; i++) {
-		    var hHeaderCell = document.createElement("TH");
-		    hHeaderCell.innerHTML = heading[i];
-		    hRow.appendChild(hHeaderCell)
-        }
+			var hHeaderCell = document.createElement("TH");
+			hHeaderCell.innerHTML = heading[i];
+			hRow.appendChild(hHeaderCell)
+		}
 
-        // Add the data rows.
-        for (var i = 0; i < homeTeam.length; i++) {
-		    row = homeTable.insertRow(-1);
-		    for (var j = 0; j < heading.length; j++) {
-		        var hCell = row.insertCell(-1);
-		        hCell.innerHTML = homeTeam[i][j];
-            }
-        }
-        boxscoreDiv.appendChild(homeTable);
+		// Add the data rows.
+		for (var i = 0; i < homeTeam.length; i++) {
+			row = homeTable.insertRow(-1);
+			for (var j = 0; j < heading.length; j++) {
+				var hCell = row.insertCell(-1);
+				hCell.innerHTML = homeTeam[i][j];
+			}
+		}
+		boxscoreDiv.appendChild(homeTable);
 		boxscoreDiv.appendChild(document.createTextNode( '\u00A0' ));
 
-        var awayTable = document.createElement('TABLE');
-        awayTable.className = "table table-condensed";
+		var awayTable = document.createElement('TABLE');
+		awayTable.className = "table table-condensed";
 		awayTable.id = "awayBoxscore";
 
 		// Add the header row
 		var row = awayTable.insertRow(-1);
 		for (var i = 0; i < heading.length; i++) {
-		    var headerCell = document.createElement("TH");
-		    headerCell.innerHTML = heading[i];
-		    row.appendChild(headerCell)
-        }
+			var headerCell = document.createElement("TH");
+			headerCell.innerHTML = heading[i];
+			row.appendChild(headerCell)
+		}
 
-        // Add the data rows.
-        for (var i = 0; i < awayTeam.length; i++) {
-		    row = awayTable.insertRow(-1);
-		    for (var j = 0; j < heading.length; j++) {
-		        var cell = row.insertCell(-1);
-		        cell.innerHTML = awayTeam[i][j];
-            }
-        }
-        boxscoreDiv.appendChild(awayTable);
+		// Add the data rows.
+		for (var i = 0; i < awayTeam.length; i++) {
+			row = awayTable.insertRow(-1);
+			for (var j = 0; j < heading.length; j++) {
+				var cell = row.insertCell(-1);
+				cell.innerHTML = awayTeam[i][j];
+			}
+		}
+		boxscoreDiv.appendChild(awayTable);
 	};
 
 	function createAdvancedGraph1(home, away, teams) {
-	    deleteAdv1();
-		var barCtx = $("#advTeamStats1");
+		var barCtx = $advTeamStats1;
 		var barData = {
 		labels: ["TS%", "eFG%", "OREB%", "DREB%", "REB%", "AST%"],
 		datasets: [
-
 			   {
 				   label: teams[0],
-				   backgroundColor: [
-                       '#b8a939',
-                       '#b8a939',
-                       '#b8a939',
-                       '#b8a939',
-                       '#b8a939',
-                       '#b8a939',
-                   ],
-				   borderColor: [
-                       '#b34c31',
-                       '#b34c31',
-                       '#b34c31',
-                       '#b34c31',
-                       '#b34c31',
-                       '#b34c31',
-                   ],
-				   borderWidth: 1,
+				   backgroundColor: '#b8a939',
+				   borderColor: '#b34c31',
+				   borderWidth: 0.5,
 				   data: home
 			   },
 			   {
 				   label: teams[1],
-				   backgroundColor: [
-                       '#243d6c',
-                       '#243d6c',
-                       '#243d6c',
-                       '#243d6c',
-                       '#243d6c',
-                       '#243d6c',
-				   ],
-				   borderColor: [
-                       '#18b389',
-                       '#18b389',
-                       '#18b389',
-                       '#18b389',
-                       '#18b389',
-                       '#18b389',
-                   ],
+				   backgroundColor: '#243d6c',
+				   borderColor: '#18b389',
+				   borderWidth: 0.5,
 				   data: away
 			   }
 		   ]
 		};
-		var advTeam = new Chart(barCtx, {
+		if (advGraph1 != null) {
+			advGraph1.destroy();
+		}
+		advGraph1 = new Chart(barCtx, {
 			type: 'horizontalBar',
 			data: barData
 		});
-		console.log("Advanced Stats graph successfully created");
-    }
+	}
 
 	function createAdvancedGraph2(home, away, teams) {
-	    deleteAdv2();
-		var barCtx = $("#advTeamStats2");
+		var barCtx = $advTeamStats2;
 		var barData = {
 		labels: ["AST_RATIO", "AST-TOV", "TO%"],
 		datasets: [
-
 			   {
 				   label: teams[0],
-				   backgroundColor: [
-                       '#b8a939',
-                       '#b8a939',
-                       '#b8a939',
-                   ],
-				   borderColor: [
-                       '#b34c31',
-                       '#b34c31',
-                       '#b34c31',
-
-                   ],
-				   borderWidth: 1,
+				   backgroundColor: '#b8a939',
+				   borderColor: '#b34c31',
+				   borderWidth: 0.5,
 				   data: home
 			   },
 			   {
 				   label: teams[1],
-				   backgroundColor: [
-                       '#243d6c',
-                       '#243d6c',
-                       '#243d6c',
-				   ],
-				   borderColor: [
-                       '#18b389',
-                       '#18b389',
-                       '#18b389',
-                   ],
+				   backgroundColor: '#243d6c',
+				   borderColor: '#18b389',
+				   borderWidth: 0.5,
 				   data: away
 			   }
 		   ]
 		};
-		var advTeam = new Chart(barCtx, {
+		if (advGraph2 != null) {
+			advGraph2.destroy();
+		}
+		advGraph2 = new Chart(barCtx, {
 			type: 'horizontalBar',
 			data: barData
 		});
-		console.log("Advanced Stats graph successfully created");
-    }
+	}
 
 	function createAdvancedGraph3(home, away, teams) {
-	    deleteAdv3();
-		var barCtx = $("#advTeamStats3");
+		var barCtx = $advTeamStats3;
 		var barData = {
 		labels: ["OFF-RATING", "DEF-RATING", "NET-RATING"],
 		datasets: [
-
 			   {
 				   label: teams[0],
-				   backgroundColor: [
-                       '#b8a939',
-                       '#b8a939',
-                       '#b8a939',
-                   ],
-				   borderColor: [
-                       '#b34c31',
-                       '#b34c31',
-                       '#b34c31',
-
-                   ],
-				   borderWidth: 1,
+				   backgroundColor: '#b8a939',
+				   borderColor: '#b34c31',
+				   borderWidth: 0.5,
 				   data: home
 			   },
 			   {
 				   label: teams[1],
-				   backgroundColor: [
-                       '#243d6c',
-                       '#243d6c',
-                       '#243d6c',
-				   ],
-				   borderColor: [
-                       '#18b389',
-                       '#18b389',
-                       '#18b389',
-                   ],
+				   backgroundColor: '#243d6c',
+				   borderColor: '#18b389',
+				   borderWidth: 0.5,
 				   data: away
 			   }
 		   ]
 		};
-		var advTeam = new Chart(barCtx, {
+		if (advGraph3 != null) {
+			advGraph3.destroy();
+		}
+		advGraph3 = new Chart(barCtx, {
 			type: 'horizontalBar',
 			data: barData
 		});
-		console.log("Advanced Stats graph successfully created");
-    }
+	}
 
-    function deleteAdv1() {
-	    $("#advTeamStats1").remove();
-	    $advContainer1.append("<canvas id='advTeamStats1'></canvas>>");
-    }
-
-	function deleteAdv2() {
-	    $("#advTeamStats2").remove();
-	    $advContainer2.append("<canvas id='advTeamStats2'></canvas>>");
-    }
-
-	function deleteAdv3() {
-	    $("#advTeamStats3").remove();
-	    $advContainer3.append("<canvas id='advTeamStats3'></canvas>>");
-    }
-
-    // Code below is from Django documentation
-    // It enables AJAX to pass the csrf_token
+	// Code below is from Django documentation
+	// It enables AJAX to pass the csrf_token
 
 	// This function gets cookie with a given name
 	function getCookie(name) {
