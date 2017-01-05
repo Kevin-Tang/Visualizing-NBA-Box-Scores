@@ -101,13 +101,13 @@ def getBoxScore(gameID):
                                      player['MIN'],
                                      player['FGM'],
                                      player['FGA'],
-                                     player['FG_PCT'],
+                                     getPercentage(player['FG_PCT']),
                                      player['FG3M'],
                                      player['FG3A'],
-                                     player['FG3_PCT'],
+                                     getPercentage(player['FG3_PCT']),
                                      player['FTM'],
                                      player['FTA'],
-                                     player['FT_PCT'],
+                                     getPercentage(player['FT_PCT']),
                                      player['DREB'],
                                      player['OREB'],
                                      player['REB'],
@@ -124,13 +124,13 @@ def getBoxScore(gameID):
                                      player['MIN'],
                                      player['FGM'],
                                      player['FGA'],
-                                     player['FG_PCT'],
+                                     getPercentage(player['FG_PCT']),
                                      player['FG3M'],
                                      player['FG3A'],
-                                     player['FG3_PCT'],
+                                     getPercentage(player['FG3_PCT']),
                                      player['FTM'],
                                      player['FTA'],
-                                     player['FT_PCT'],
+                                     getPercentage(player['FT_PCT']),
                                      player['DREB'],
                                      player['OREB'],
                                      player['REB'],
@@ -211,12 +211,12 @@ def getTeamAdvanced(gameID):
     advTeamStats = boxscore.sql_team_advanced()
     stats = []
     for team in advTeamStats:
-        stats.append([team['TS_PCT'],
-                      team['EFG_PCT'],
-                      team['OREB_PCT'],
-                      team['DREB_PCT'],
-                      team['REB_PCT'],
-                      team['AST_PCT']])
+        stats.append([getPercentage(team['TS_PCT']),
+                      getPercentage(team['EFG_PCT']),
+                      getPercentage(team['OREB_PCT']),
+                      getPercentage(team['DREB_PCT']),
+                      getPercentage(team['REB_PCT']),
+                      getPercentage(team['AST_PCT'])])
         stats.append([team['AST_RATIO'],
                       team['AST_TOV'],
                       team['TM_TOV_PCT']])
@@ -237,26 +237,34 @@ def getPlayerAdvanced(gameID):
                 teamIDs.append(player['TEAM_ID'])
             if player['TEAM_ID'] == teamIDs[0]:
                 awayTeam.append([player['PLAYER_NAME'],
-                              player['TS_PCT'],
-                              player['EFG_PCT'],
-                              player['OREB_PCT'],
-                              player['DREB_PCT'],
-                              player['REB_PCT'],
-                              player['AST_PCT'],
-                              player['TM_TOV_PCT']])
+                              getPercentage(player['TS_PCT']),
+                              getPercentage(player['EFG_PCT']),
+                              getPercentage(player['OREB_PCT']),
+                              getPercentage(player['DREB_PCT']),
+                              getPercentage(player['REB_PCT']),
+                              getPercentage(player['AST_PCT']),
+                              getPercentage(player['TM_TOV_PCT'])])
             elif player['TEAM_ID'] == teamIDs[1]:
                 homeTeam.append([player['PLAYER_NAME'],
-                              player['TS_PCT'],
-                              player['EFG_PCT'],
-                              player['OREB_PCT'],
-                              player['DREB_PCT'],
-                              player['REB_PCT'],
-                              player['AST_PCT'],
-                              player['TM_TOV_PCT']])
+                              getPercentage(player['TS_PCT']),
+                              getPercentage(player['EFG_PCT']),
+                              getPercentage(player['OREB_PCT']),
+                              getPercentage(player['DREB_PCT']),
+                              getPercentage(player['REB_PCT']),
+                              getPercentage(player['AST_PCT']),
+                              getPercentage(player['TM_TOV_PCT'])])
             else:
                 continue
 
     return [awayTeam, homeTeam]
+
+def getPercentage(number):
+    """
+    Takes in a string number and multiplies it by 100 to give rounded percentage stats
+    :param number:
+    :return: string percentage
+    """
+    return str(round(float(number) * 100, 1))
 
 def main():
     id = getGameID(12, 20, 2016)

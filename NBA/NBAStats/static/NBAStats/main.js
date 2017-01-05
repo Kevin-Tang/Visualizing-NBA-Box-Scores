@@ -139,7 +139,7 @@ $(document).ready(function(){
 
 				// Create Team Advanced Charts
 				$advTeamName1.text("Team Advanced Percentage Statistics");
-				$advTeamName2.text("Team Advanced Assist-Turnover Statistics");
+				$advTeamName2.text("Team Advanced Assist-Turnover Stats");
 				$advTeamName3.text("Team Advanced Rating");
 				createAdvancedGraph1(json.teamAdvanced[0], json.teamAdvanced[3], teams);
 				createAdvancedGraph2(json.teamAdvanced[1], json.teamAdvanced[4], teams);
@@ -329,7 +329,7 @@ $(document).ready(function(){
 		homeTable.id = "homeBoxscore";
 
 		var heading = [];
-		heading[0] = "Player_Name";
+		heading[0] = "Player Name";
 		heading[1] = "Mins";
 		heading[2] = "FGM";
 		heading[3] = "FGA";

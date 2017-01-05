@@ -8,8 +8,4 @@ python-dateutil==2.6.0
 pytz==2016.10
 requests==2.12.4
 six==1.10.0
-<<<<<<< HEAD
 whitenoise==3.2.2
-=======
-whitenoise==3.2.2
->>>>>>> fbf08224c75fb24e892618f072ceab5c5caf195a

@@ -29,9 +29,18 @@
 }
 
 input[type=text] {
-    width: 25%;
-    border: none;
-    border-bottom : 2px solid gold;
+    width: 8%;
+	padding: 10px 15px;
+	box-sizing: border-box;
+	border: none;
+	border-bottom: 2px solid #ffd700;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+input[type=text]:focus {
+	border-bottom: 3px solid #caad00;
 }
 
 #header li a {

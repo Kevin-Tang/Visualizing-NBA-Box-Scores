@@ -1,12 +1,14 @@
 import json
 from django.template import loader
-# from django.views.decorators.csrf import ensure_csrf_cookie
+# from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import HttpResponse
 from . import getStats
 # import getStats # IST THIS GOING TO WORK?
 
 
-# @ensure_csrf_cookie  #This decorator forces a view to send the CSRF cookie.
+@ensure_csrf_cookie  #This decorator forces a view to send the CSRF cookie.
+# @csrf_protect
 def index(request):
     template = loader.get_template('NBAStats/index.html')
     return HttpResponse(template.render(request))
