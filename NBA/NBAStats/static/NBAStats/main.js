@@ -34,6 +34,9 @@ $(document).ready(function(){
 	var advGraph2;
 	var advGraph3;
 
+	// Declare graphs as global variables
+	var barGraph;
+
 	// Initialize datepicker
 	$calendar.datepicker({
 		defaultDate: "-1d",
@@ -128,6 +131,7 @@ $(document).ready(function(){
 				// console.log(players[2]);
 				// console.log(players[3]);
 
+
 				createPieGraph1(players[0], players[1]);
 				createPieGraph2(players[2], players[3]);
 
@@ -161,6 +165,7 @@ $(document).ready(function(){
 
 	// creates the bar graph for quarter scores
 	function createBarGraph(homeTeamScores, awayTeamScores, teams) {
+<<<<<<< HEAD
 		var barCtx = $BarGraph;
 		var barData = {
 			labels: ["Start", "Q1", "Q2", "Q3", "Q4", "Total"],
