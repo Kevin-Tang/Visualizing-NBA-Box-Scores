@@ -6,6 +6,6 @@ numpy==1.22.0
 pandas==0.19.2+0.g825876c.dirty
 python-dateutil==2.6.0
 pytz==2016.10
-requests==2.20.0
+requests==2.31.0
 six==1.10.0
 whitenoise==3.2.2
