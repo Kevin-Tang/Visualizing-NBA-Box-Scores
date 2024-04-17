@@ -1,6 +1,6 @@
 dj-database-url==0.4.1
 Django==3.2.25
-gunicorn==19.6.0
+gunicorn==22.0.0
 nba-py==0.1.1a2
 numpy==1.22.0
 pandas==0.19.2+0.g825876c.dirty
